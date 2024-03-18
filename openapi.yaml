@@ -884,7 +884,7 @@ components:
                 endgrate_type:
                   type: string
                   examples: 
-                    - contact
+                    - crm-contact
                 supports_associations:
                   type: boolean
                   examples: 
