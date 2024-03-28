@@ -1717,6 +1717,72 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PullInitiateSchema'
+            examples:
+              Simple:
+                value:
+                  schema:
+                    - endgrate_type: crm-contact
+              Manual:
+                value:
+                  field_selection: true
+                  resource_selection: true
+                  schema:
+                    - endgrate_type: crm-contact
+                  schema_selection: true
+              Sync:
+                value:
+                  schema:
+                    - endgrate_type: crm-contact
+                  sync: true
+                  save_session: true
+              Associations:
+                value:
+                  schema:
+                  - endgrate_type: crm-contact
+                    associations: true
+                  - endgrate_type: crm-company
+              Passthrough:
+                value:
+                  field_selection: true
+                  resource_selection: true
+                  schema:
+                    - endgrate_type: crm-contact
+                  passthrough_fields: true
+                  passthrough_schemas: true
+                  schema_selection: true
+              Comprehensive:
+                value:
+                  completed_webhook:
+                    endpoint: https://httpbin.org/post
+                    metadata:
+                      user_id: 1
+                  configuration_webhook:
+                    endpoint: https://httpbin.org/post
+                    metadata:
+                      user_id: 1
+                  data_webhook:
+                    endpoint: https://httpbin.org/post
+                    metadata:
+                      user_id: 1
+                  error_webhook:
+                    endpoint: https://httpbin.org/post
+                    metadata:
+                      user_id: 1
+                  field_selection: false
+                  passthrough_fields: false
+                  passthrough_schemas: false
+                  sync: false
+                  prepopulate: {}
+                  provider: hubspot
+                  redirect_url: https://www.google.com/
+                  resource_selection: false
+                  save_session: false
+                  schema:
+                    - endgrate_type: crm-contact
+                  schema_selection: false
+                  statistics: false
+                  webhook_concurrency: false
+                  bypass_ui: false
         required: true
       callbacks:
         completed_webhook:
