@@ -1215,6 +1215,7 @@ components:
             - workspace-user
         params:
           type: object
+          description: Optionally, filter by certain properties in your schema by specifying them here.
         session_id:
           type: string
           examples: 
