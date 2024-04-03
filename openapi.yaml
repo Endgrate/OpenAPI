@@ -1083,21 +1083,25 @@ components:
         field_selection:
           description: Whether or not to allow the user to configure field mapping.
           type: boolean
+          default: false
           examples: 
             - false
         passthrough_fields:
           description: Whether or not passthrough fields are allowed.
           type: boolean
+          default: false
           examples: 
             - false
         passthrough_schemas:
           description: Whether or not passthrough schemas are allowed.
           type: boolean
+          default: false
           examples: 
             - false
         sync:
           description: Whether or not to return only updated (new) data when pulling data.
           type: boolean
+          default: false
           examples: 
             - false
         prepopulate:
@@ -1115,11 +1119,13 @@ components:
         resource_selection:
           description: Whether or not to allow the user to choose the integrations for a given schema (e.g. choosing "Get Contacts" for a contact schema).
           type: boolean
+          default: false
           examples: 
             - false
         save_session:
           description: Whether or not the session should be persisted permanently. If false, sessions will expire after 72 hours.
           type: boolean
+          default: false
           examples: 
             - false
         schema:
@@ -1130,21 +1136,25 @@ components:
         schema_selection:
           description: Whether or not to allow the user to choose which schemas to pull in.
           type: boolean
+          default: false
           examples: 
             - false
         statistics:
           description: Whether or not to allow the user to see transfer statistics.
           type: boolean
+          default: false
           examples:
             - false
         webhook_concurrency:
           description: Whether or not to execute POST requests to webhooks concurrently.
           type: boolean
+          default: false
           examples: 
             - false
         bypass_ui:
           description: Whether or not the Endgrate UI should be bypassed (Beta).
           type: boolean
+          default: false
           examples: 
             - false
       title: PullInitiateSchema
@@ -1155,6 +1165,7 @@ components:
         bypass_rate_limit:
           description: Whether or not to bypass the integration/provider rate limit when transferring data.
           type: boolean
+          default: false
           examples: 
             - false
         endgrate_type:
@@ -1223,6 +1234,7 @@ components:
         synchronous:
           description: Whether or not to make this API request synchronous. If true, Endgrate will poll the status of the transfer interally, and return only when the transfer is completed, with a 5 minute maximum polling time.
           type: boolean
+          default: false
           examples: 
             - false
       required:
@@ -1245,6 +1257,7 @@ components:
         field_selection:
           description: Whether or not to allow the user to configure field mapping.
           type: boolean
+          default: false
           examples: 
             - false
         prepopulate:
@@ -1262,11 +1275,13 @@ components:
         resource_selection:
           description: Whether or not to allow the user to choose the integrations for a given schema (e.g. choosing "Get Contacts" for a contact schema).
           type: boolean
+          default: false
           examples:
             - false
         save_session:
           description: Whether or not the session should be persisted permanently. If false, sessions will expire after 72 hours.
           type: boolean
+          default: false
           examples: 
             - false
         schema:
@@ -1277,21 +1292,25 @@ components:
         schema_selection:
           description: Whether or not to allow the user to choose which schemas to pull in.
           type: boolean
+          default: false
           examples: 
             - false
         statistics:
           description: Whether or not to allow the user to see transfer statistics.
           type: boolean
+          default: false
           examples:
             - false
         webhook_concurrency:
           description: Whether or not to execute POST requests to webhooks concurrently.
           type: boolean
+          default: false
           examples: 
             - false
         bypass_ui:
           description: Whether or not the Endgrate UI should be bypassed (Beta).
           type: boolean
+          default: false
           examples: 
             - false
       title: PushInitiateSchema
@@ -1302,6 +1321,7 @@ components:
         bypass_rate_limit:
           description: Whether or not to bypass the integration/provider rate limit when transferring data.
           type: boolean
+          default: false
           examples: 
             - false
         endgrate_type:
@@ -1367,6 +1387,7 @@ components:
         synchronous:
           description: Whether or not to make this API request synchronous. If true, If true, Endgrate will poll the status of the transfer interally, and return only when the transfer is completed, with a 5 minute maximum polling time.
           type: boolean
+          default: false
           examples: 
             - false
         transfer_data:
@@ -1402,21 +1423,25 @@ components:
         field_selection:
           description: Whether or not to allow the user to configure field mapping.
           type: boolean
+          default: false
           examples:
             - false
         passthrough_fields:
           description: Whether or not passthrough fields are allowed.
           type: boolean
+          default: false
           examples: 
             - false
         passthrough_schemas:
           description: Whether or not passthrough schemas are allowed.
           type: boolean
+          default: false
           examples: 
             - false
         sync:
           description: Whether or not to return only updated (new) data when pulling data.
           type: boolean
+          default: false
           examples: 
             - false
         prepopulate:
@@ -1434,11 +1459,13 @@ components:
         resource_selection:
           description: Whether or not to allow the user to choose the integrations for a given schema (e.g. choosing "Get Contacts" for a contact schema).
           type: boolean
+          default: false
           examples: 
             - false
         save_session:
           description: Whether or not the session should be persisted permanently. If false, sessions will expire after 72 hours.
           type: boolean
+          default: false
           examples: 
             - false
         schema:
@@ -1449,21 +1476,25 @@ components:
         schema_selection:
           description: Whether or not to allow the user to choose which schemas to pull in.
           type: boolean
+          default: false
           examples: 
             - false
         statistics:
           description: Whether or not to allow the user to see transfer statistics.
           type: boolean
+          default: false
           examples:
             - false
         webhook_concurrency:
           description: Whether or not to execute POST requests to webhooks concurrently.
           type: boolean
+          default: false
           examples: 
             - false
         bypass_ui:
           description: Whether or not the Endgrate UI should be bypassed (Beta).
           type: boolean
+          default: false
           examples: 
             - false
       title: SessionInitiateSchema
@@ -1506,6 +1537,7 @@ paths:
           name: limit
           required: false
           example: 250
+          default: 250
           schema:
             maximum: 250
             minimum: 1
@@ -1514,6 +1546,7 @@ paths:
           name: offset
           required: false
           example: 500
+          default: 0
           schema:
             minimum: 0
             type: integer
@@ -1946,6 +1979,7 @@ paths:
           name: limit
           required: false
           example: 250
+          default: 250
           schema:
             maximum: 250
             minimum: 1
@@ -1954,6 +1988,7 @@ paths:
           name: offset
           required: false
           example: 500
+          default: 0
           schema:
             minimum: 0
             type: integer
@@ -2090,6 +2125,7 @@ paths:
           name: limit
           required: false
           example: 250
+          default: 250
           schema:
             maximum: 250
             minimum: 1
@@ -2098,6 +2134,7 @@ paths:
           name: offset
           required: false
           example: 500
+          default: 0
           schema:
             minimum: 0
             type: integer
