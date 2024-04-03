@@ -1537,19 +1537,19 @@ paths:
           name: limit
           required: false
           example: 250
-          default: 250
           schema:
             maximum: 250
             minimum: 1
             type: integer
+            default: 250
         - in: query
           name: offset
           required: false
           example: 500
-          default: 0
           schema:
             minimum: 0
             type: integer
+            default: 0
         - in: query
           name: session_id
           required: false
@@ -1979,19 +1979,19 @@ paths:
           name: limit
           required: false
           example: 250
-          default: 250
           schema:
             maximum: 250
             minimum: 1
             type: integer
+            default: 250
         - in: query
           name: offset
           required: false
           example: 500
-          default: 0
           schema:
             minimum: 0
             type: integer
+            default: 0
         - in: query
           name: transfer_id
           required: true
@@ -2125,19 +2125,19 @@ paths:
           name: limit
           required: false
           example: 250
-          default: 250
           schema:
             maximum: 250
             minimum: 1
             type: integer
+            default: 250
         - in: query
           name: offset
           required: false
           example: 500
-          default: 0
           schema:
             minimum: 0
             type: integer
+            default: 0
         - in: query
           name: transfer_id
           required: true
