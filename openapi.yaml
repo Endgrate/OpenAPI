@@ -1756,26 +1756,26 @@ paths:
                 value:
                   schema:
                     - endgrate_type: crm-contact
-              Manual:
+              Enable All UX Screens:
                 value:
                   field_selection: true
                   resource_selection: true
                   schema:
                     - endgrate_type: crm-contact
                   schema_selection: true
-              Sync:
+              Enable Sync:
                 value:
                   schema:
                     - endgrate_type: crm-contact
                   sync: true
                   save_session: true
-              Associations:
+              Enable Associations:
                 value:
                   schema:
                   - endgrate_type: crm-contact
                     associations: true
                   - endgrate_type: crm-company
-              Passthrough:
+              Enable Passthrough:
                 value:
                   field_selection: true
                   resource_selection: true
