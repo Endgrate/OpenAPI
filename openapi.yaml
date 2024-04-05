@@ -2242,6 +2242,49 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PushInitiateSchema'
+            examples:
+              Simple:
+                value:
+                  schema:
+                    - endgrate_type: crm-contact
+              Enable All UX Screens:
+                value:
+                  field_selection: true
+                  resource_selection: true
+                  schema:
+                    - endgrate_type: crm-contact
+                  schema_selection: true
+              Enable Save Session:
+                value:
+                  schema:
+                    - endgrate_type: crm-contact
+                  save_session: true
+              Comprehensive:
+                value:
+                  completed_webhook:
+                    endpoint: https://httpbin.org/post
+                    metadata:
+                      user_id: 1
+                  configuration_webhook:
+                    endpoint: https://httpbin.org/post
+                    metadata:
+                      user_id: 1
+                  error_webhook:
+                    endpoint: https://httpbin.org/post
+                    metadata:
+                      user_id: 1
+                  field_selection: false
+                  prepopulate: {}
+                  provider: hubspot
+                  redirect_url: https://www.google.com/
+                  resource_selection: false
+                  save_session: false
+                  schema:
+                    - endgrate_type: crm-contact
+                  schema_selection: false
+                  statistics: false
+                  webhook_concurrency: false
+                  bypass_ui: false
         required: true
       callbacks:
         completed_webhook:
@@ -2417,6 +2460,72 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/SessionInitiateSchema'
+            examples:
+              Simple:
+                value:
+                  schema:
+                    - endgrate_type: crm-contact
+              Enable All UX Screens:
+                value:
+                  field_selection: true
+                  resource_selection: true
+                  schema:
+                    - endgrate_type: crm-contact
+                  schema_selection: true
+              Enable Sync:
+                value:
+                  schema:
+                    - endgrate_type: crm-contact
+                  sync: true
+                  save_session: true
+              Enable Associations:
+                value:
+                  schema:
+                  - endgrate_type: crm-contact
+                    associations: true
+                  - endgrate_type: crm-company
+              Enable Passthrough:
+                value:
+                  field_selection: true
+                  resource_selection: true
+                  schema:
+                    - endgrate_type: crm-contact
+                  passthrough_fields: true
+                  passthrough_schemas: true
+                  schema_selection: true
+              Comprehensive:
+                value:
+                  completed_webhook:
+                    endpoint: https://httpbin.org/post
+                    metadata:
+                      user_id: 1
+                  configuration_webhook:
+                    endpoint: https://httpbin.org/post
+                    metadata:
+                      user_id: 1
+                  data_webhook:
+                    endpoint: https://httpbin.org/post
+                    metadata:
+                      user_id: 1
+                  error_webhook:
+                    endpoint: https://httpbin.org/post
+                    metadata:
+                      user_id: 1
+                  field_selection: false
+                  passthrough_fields: false
+                  passthrough_schemas: false
+                  sync: false
+                  prepopulate: {}
+                  provider: hubspot
+                  redirect_url: https://www.google.com/
+                  resource_selection: false
+                  save_session: false
+                  schema:
+                    - endgrate_type: crm-contact
+                  schema_selection: false
+                  statistics: false
+                  webhook_concurrency: false
+                  bypass_ui: false
         required: true
       callbacks:
         completed_webhook:
@@ -2709,6 +2818,17 @@ webhooks:
           application/json:
             schema:
               $ref: "#/components/schemas/CompletedCallbackSchema"
+            examples:
+              Comprehensive:
+                value:
+                  success: true
+                  transfer_id: 6566e87b7cf20dca9cef0c0d
+                  session_id: 6566e85e7cf20dca9cef0c0a
+                  metadata:
+                    user_id: 1
+                  endgrate:
+                    endgrate_type: crm-contact
+                  completed: true
       responses:
         "200":
           description: Acknowledgement that the completion data was received successfully
@@ -2723,6 +2843,81 @@ webhooks:
           application/json:
             schema:
               $ref: "#/components/schemas/ConfigurationCallbackSchema"
+            examples:
+              Comprehensive:
+                value:
+                  success: true
+                  session_id: 6566e85e7cf20dca9cef0c0a
+                  endgrate:
+                    provider: hubspot
+                    provider_info:
+                      name: hubspot
+                      display_name: HubSpot
+                      url: https://www.hubspot.com/
+                      image: https://endgrate.nyc3.cdn.digitaloceanspaces.com/integration/hubspot.png
+                      auth_type: oauth
+                      specific: {}
+                      endgrate_provider_type: CRM
+                  schemas:
+                    contact:
+                      integration_info:
+                        name: get-contacts
+                        display_name: Get Contacts
+                        method: IMPORT
+                      integration: get-contacts
+                      schema:
+                        type: object
+                        associations: true
+                        endgrate_type: crm-contact
+                        properties:
+                          email:
+                            type: string
+                            format: email
+                          first_name:
+                            type: string
+                          last_name:
+                            type: string
+                          full_name:
+                            type: string
+                          company:
+                            type: string
+                          age:
+                            type: number
+                          is_employed:
+                            type: boolean
+                          lifecyclestage:
+                            title: Lifecycle Stage
+                            type: string
+                        required:
+                        - email
+                        title: crm-contact
+                        session_method: IMPORT
+                      passthrough_fields:
+                        properties:
+                          lifecyclestage:
+                            title: Lifecycle Stage
+                            type: string
+                          required: []
+                  passthrough_schemas:
+                    custom:
+                      integration_info:
+                        name: get-custom-objects
+                        display_name: Get Custom Objects
+                        method: IMPORT
+                      integration: get-custom-objects
+                      schema:
+                        type: object
+                        associations: true
+                        endgrate_type: Custom
+                        properties: 
+                        required: []
+                        title: custom
+                        session_method: IMPORT
+                      passthrough_fields:
+                        customfield1:
+                          type: string
+                        required:
+                        - customfield1
       responses:
         "200":
           description: Acknowledgement that the configuration data was received successfully
@@ -2737,6 +2932,31 @@ webhooks:
           application/json:
             schema:
               $ref: "#/components/schemas/DataCallbackSchema"
+            examples:
+              Comprehensive:
+                value:
+                  success: true
+                  transfer_id: 6566e87b7cf20dca9cef0c0d
+                  session_id: 6566e85e7cf20dca9cef0c0a
+                  metadata:
+                    user_id: '1'
+                  endgrate:
+                    endgrate_type: Contact
+                  completed: true
+                  transfer_data:
+                  - id: 68951
+                    data:
+                      email: susan@youtube.com
+                      first_name: Susan
+                      last_name: Wojicki
+                      full_name: Susan Wojicki
+                      company: YouTube
+                      is_employed: true
+                      age: 37
+                      lifecyclestage: lead
+                    associations:
+                      crm-company:
+                      - '93574'
       responses:
         "200":
           description: Acknowledgement that the data was received successfully
@@ -2751,6 +2971,33 @@ webhooks:
           application/json:
             schema:
               $ref: "#/components/schemas/ErrorCallbackSchema"
+            examples:
+              Comprehensive:
+                value:
+                  success: true
+                  pk: 65c9c40982664224123cebd5
+                  transfer_id: 6566e87b7cf20dca9cef0c0d
+                  session_id: 6566e85e7cf20dca9cef0c0a
+                  timestamp: '2023-08-28T02:04:08.917Z'
+                  error_resolve_text: There is a mapping error or invalid data point in one or more
+                    fields. The field 'testdate' looks like a date and is not a valid long number. It
+                    must be a valid long number.
+                  error_type: mapping
+                  resolved: true
+                  endgrate:
+                    provider_info:
+                      name: hubspot
+                      display_name: HubSpot
+                      url: https://www.hubspot.com/
+                      image: https://endgrate.nyc3.cdn.digitaloceanspaces.com/integration/hubspot.png
+                      auth_type: oauth
+                      endgrate_provider_type: CRM
+                    integration_info:
+                      name: get-contacts
+                      display_name: Get Contacts
+                      method: IMPORT
+                      endgrate_type: crm-contact
+                      supports_associations: true
       responses:
         "200":
           description: Acknowledgement that the error information was received successfully
