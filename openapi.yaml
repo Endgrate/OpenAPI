@@ -14,7 +14,7 @@ components:
             type: string
             description: An ID that identifies this resource, returned by the integration provider.
             examples: 
-              - 68951
+              - '68951'
           data:
             type: object
             description: Transfer data conforming to the specified `endgrate_type` or custom schema. (if `passthrough_fields` is true, passthrough fields will also be returned here).
