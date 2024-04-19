@@ -1128,6 +1128,13 @@ components:
           default: false
           examples: 
             - false
+        category:
+          description: A category of endgrate types. Adds any schemas from the category that are not manually defined
+          type: string
+          examples:
+            - crm
+            - ecommerce
+            - helpdesk
         schema:
           description: An array of schemas to be pulled in.
           type: array
@@ -1284,6 +1291,13 @@ components:
           default: false
           examples: 
             - false
+        category:
+          description: A category of endgrate types. Adds any schemas from the category that are not manually defined
+          type: string
+          examples:
+            - crm
+            - ecommerce
+            - helpdesk
         schema:
           description: An array of schemas to be pushed out.
           type: array
@@ -1452,7 +1466,7 @@ components:
           examples: 
             - hubspot
         redirect_url:
-          description: A URL that users will be redirected to after setting up the session..
+          description: A URL that users will be redirected to after setting up the session.
           type: string
           examples: 
             - https://www.google.com
@@ -1468,6 +1482,13 @@ components:
           default: false
           examples: 
             - false
+        category:
+          description: A category of endgrate types. Adds any schemas from the category that are not manually defined
+          type: string
+          examples:
+            - crm
+            - ecommerce
+            - helpdesk
         schema:
           description: An array of schemas.
           type: array
@@ -1811,6 +1832,7 @@ paths:
                   redirect_url: https://www.google.com/
                   resource_selection: false
                   save_session: false
+                  category: "crm"
                   schema:
                     - endgrate_type: crm-contact
                   schema_selection: false
@@ -2279,6 +2301,7 @@ paths:
                   redirect_url: https://www.google.com/
                   resource_selection: false
                   save_session: false
+                  category: "crm"
                   schema:
                     - endgrate_type: crm-contact
                   schema_selection: false
@@ -2520,6 +2543,7 @@ paths:
                   redirect_url: https://www.google.com/
                   resource_selection: false
                   save_session: false
+                  category: "crm"
                   schema:
                     - endgrate_type: crm-contact
                   schema_selection: false
