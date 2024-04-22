@@ -1129,12 +1129,26 @@ components:
           examples: 
             - false
         category:
-          description: A category of endgrate types. Adds any schemas from the category that are not manually defined
+          description: An integration category. If specified, all default schemas from the category will be added for this session.
           type: string
           examples:
             - crm
             - ecommerce
             - helpdesk
+          enum:
+            - accounting
+            - analytics
+            - ats
+            - calendar
+            - communication
+            - crm
+            - database
+            - ecommerce
+            - forms
+            - helpdesk
+            - marketing
+            - prospecting
+            - workspace
         schema:
           description: An array of schemas to be pulled in.
           type: array
@@ -1292,12 +1306,26 @@ components:
           examples: 
             - false
         category:
-          description: A category of endgrate types. Adds any schemas from the category that are not manually defined
+          description: An integration category. If specified, all default schemas from the category will be added for this session.
           type: string
           examples:
             - crm
             - ecommerce
             - helpdesk
+          enum:
+            - accounting
+            - analytics
+            - ats
+            - calendar
+            - communication
+            - crm
+            - database
+            - ecommerce
+            - forms
+            - helpdesk
+            - marketing
+            - prospecting
+            - workspace
         schema:
           description: An array of schemas to be pushed out.
           type: array
@@ -1483,12 +1511,26 @@ components:
           examples: 
             - false
         category:
-          description: A category of endgrate types. Adds any schemas from the category that are not manually defined
+          description: An integration category. If specified, all default schemas from the category will be added for this session.
           type: string
           examples:
             - crm
             - ecommerce
             - helpdesk
+          enum:
+            - accounting
+            - analytics
+            - ats
+            - calendar
+            - communication
+            - crm
+            - database
+            - ecommerce
+            - forms
+            - helpdesk
+            - marketing
+            - prospecting
+            - workspace
         schema:
           description: An array of schemas.
           type: array
@@ -1832,7 +1874,6 @@ paths:
                   redirect_url: https://www.google.com/
                   resource_selection: false
                   save_session: false
-                  category: "crm"
                   schema:
                     - endgrate_type: crm-contact
                   schema_selection: false
@@ -2301,7 +2342,6 @@ paths:
                   redirect_url: https://www.google.com/
                   resource_selection: false
                   save_session: false
-                  category: "crm"
                   schema:
                     - endgrate_type: crm-contact
                   schema_selection: false
@@ -2543,7 +2583,6 @@ paths:
                   redirect_url: https://www.google.com/
                   resource_selection: false
                   save_session: false
-                  category: "crm"
                   schema:
                     - endgrate_type: crm-contact
                   schema_selection: false
