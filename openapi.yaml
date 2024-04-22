@@ -1128,6 +1128,27 @@ components:
           default: false
           examples: 
             - false
+        category:
+          description: An integration category. If specified, all default schemas from the category will be added for this session.
+          type: string
+          examples:
+            - crm
+            - ecommerce
+            - helpdesk
+          enum:
+            - accounting
+            - analytics
+            - ats
+            - calendar
+            - communication
+            - crm
+            - database
+            - ecommerce
+            - forms
+            - helpdesk
+            - marketing
+            - prospecting
+            - workspace
         schema:
           description: An array of schemas to be pulled in.
           type: array
@@ -1284,6 +1305,27 @@ components:
           default: false
           examples: 
             - false
+        category:
+          description: An integration category. If specified, all default schemas from the category will be added for this session.
+          type: string
+          examples:
+            - crm
+            - ecommerce
+            - helpdesk
+          enum:
+            - accounting
+            - analytics
+            - ats
+            - calendar
+            - communication
+            - crm
+            - database
+            - ecommerce
+            - forms
+            - helpdesk
+            - marketing
+            - prospecting
+            - workspace
         schema:
           description: An array of schemas to be pushed out.
           type: array
@@ -1452,7 +1494,7 @@ components:
           examples: 
             - hubspot
         redirect_url:
-          description: A URL that users will be redirected to after setting up the session..
+          description: A URL that users will be redirected to after setting up the session.
           type: string
           examples: 
             - https://www.google.com
@@ -1468,6 +1510,27 @@ components:
           default: false
           examples: 
             - false
+        category:
+          description: An integration category. If specified, all default schemas from the category will be added for this session.
+          type: string
+          examples:
+            - crm
+            - ecommerce
+            - helpdesk
+          enum:
+            - accounting
+            - analytics
+            - ats
+            - calendar
+            - communication
+            - crm
+            - database
+            - ecommerce
+            - forms
+            - helpdesk
+            - marketing
+            - prospecting
+            - workspace
         schema:
           description: An array of schemas.
           type: array
