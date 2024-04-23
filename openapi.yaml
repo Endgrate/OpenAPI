@@ -58,6 +58,8 @@ components:
         metadata:
           type: object
           description: The metadata from ${request.body#/completed_webhook/metadata}.
+          additionalProperties:
+            type: string
           examples:
             - user_id: 1
         endgrate:
@@ -613,6 +615,8 @@ components:
         metadata:
           type: object
           description: The metadata from ${request.body#/data_webhook/metadata}.
+          additionalProperties:
+            type: string
           examples:
             - user_id: 1
         endgrate:
@@ -904,6 +908,8 @@ components:
         metadata:
           type: object
           description: Any information to be passed back in the webhook call.
+          additionalProperties:
+            type: string
           examples:
             - user_id: 1
       required:
@@ -1572,6 +1578,8 @@ components:
         metadata:
           type: object
           description: Any information to be passed back in the webhook call.
+          additionalProperties:
+            type: string
           example:
             user_id: 1
       required:
@@ -1910,6 +1918,8 @@ paths:
                             metadata:
                               type: object
                               description: The metadata from ${request.body#/data_webhook/metadata}.
+                              additionalProperties:
+                                type: string
                               example:
                                 user_id: 1
                               
@@ -1945,6 +1955,8 @@ paths:
                             metadata:
                               type: object
                               description: The metadata from ${request.body#/error_webhook/metadata}.
+                              additionalProperties:
+                                type: string
                               example:
                                 user_id: 1
                             success:
@@ -2378,6 +2390,8 @@ paths:
                             metadata:
                               type: object
                               description: The metadata from ${request.body#/data_webhook/metadata}.
+                              additionalProperties:
+                                type: string
                               example:
                                 user_id: 1
                               
@@ -2400,6 +2414,8 @@ paths:
                             metadata:
                               type: object
                               description: The metadata from ${request.body#/error_webhook/metadata}.
+                              additionalProperties:
+                                type: string
                               example:
                                 user_id: 1
                             success:
@@ -2619,6 +2635,8 @@ paths:
                             metadata:
                               type: object
                               description: The metadata from ${request.body#/data_webhook/metadata}.
+                              additionalProperties:
+                                type: string
                               example:
                                 user_id: 1
                               
@@ -2654,6 +2672,8 @@ paths:
                             metadata:
                               type: object
                               description: The metadata from ${request.body#/error_webhook/metadata}.
+                              additionalProperties:
+                                type: string
                               example:
                                 user_id: 1
                             success:
