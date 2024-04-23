@@ -59,7 +59,10 @@ components:
           type: object
           description: The metadata from ${request.body#/completed_webhook/metadata}.
           additionalProperties:
-            type: string
+            type:
+              - string
+              - integer
+              - boolean
           examples:
             - user_id: 1
         endgrate:
@@ -616,7 +619,10 @@ components:
           type: object
           description: The metadata from ${request.body#/data_webhook/metadata}.
           additionalProperties:
-            type: string
+            type:
+              - string
+              - integer
+              - boolean
           examples:
             - user_id: 1
         endgrate:
@@ -909,7 +915,10 @@ components:
           type: object
           description: Any information to be passed back in the webhook call.
           additionalProperties:
-            type: string
+            type:
+              - string
+              - integer
+              - boolean
           examples:
             - user_id: 1
       required:
@@ -1579,7 +1588,10 @@ components:
           type: object
           description: Any information to be passed back in the webhook call.
           additionalProperties:
-            type: string
+            type:
+              - string
+              - integer
+              - boolean
           example:
             user_id: 1
       required:
@@ -1919,7 +1931,10 @@ paths:
                               type: object
                               description: The metadata from ${request.body#/data_webhook/metadata}.
                               additionalProperties:
-                                type: string
+                                type:
+                                  - string
+                                  - integer
+                                  - boolean
                               example:
                                 user_id: 1
                               
@@ -1956,7 +1971,10 @@ paths:
                               type: object
                               description: The metadata from ${request.body#/error_webhook/metadata}.
                               additionalProperties:
-                                type: string
+                                type:
+                                  - string
+                                  - integer
+                                  - boolean
                               example:
                                 user_id: 1
                             success:
@@ -2391,7 +2409,10 @@ paths:
                               type: object
                               description: The metadata from ${request.body#/data_webhook/metadata}.
                               additionalProperties:
-                                type: string
+                                type:
+                                  - string
+                                  - integer
+                                  - boolean
                               example:
                                 user_id: 1
                               
@@ -2415,7 +2436,10 @@ paths:
                               type: object
                               description: The metadata from ${request.body#/error_webhook/metadata}.
                               additionalProperties:
-                                type: string
+                                type:
+                                  - string
+                                  - integer
+                                  - boolean
                               example:
                                 user_id: 1
                             success:
@@ -2636,7 +2660,10 @@ paths:
                               type: object
                               description: The metadata from ${request.body#/data_webhook/metadata}.
                               additionalProperties:
-                                type: string
+                                type:
+                                  - string
+                                  - integer
+                                  - boolean
                               example:
                                 user_id: 1
                               
@@ -2673,7 +2700,10 @@ paths:
                               type: object
                               description: The metadata from ${request.body#/error_webhook/metadata}.
                               additionalProperties:
-                                type: string
+                                type:
+                                  - string
+                                  - integer
+                                  - boolean
                               example:
                                 user_id: 1
                             success:
