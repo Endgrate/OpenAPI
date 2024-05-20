@@ -116,6 +116,7 @@ components:
                 - helpdesk-contact
                 - helpdesk-note
                 - helpdesk-user
+                - helpdesk-message
                 - marketing-contact
                 - marketing-customer
                 - marketing-lead
@@ -292,6 +293,7 @@ components:
                       - helpdesk-contact
                       - helpdesk-note
                       - helpdesk-user
+                      - helpdesk-message
                       - marketing-contact
                       - marketing-customer
                       - marketing-lead
@@ -370,6 +372,7 @@ components:
                       - helpdesk-contact
                       - helpdesk-note
                       - helpdesk-user
+                      - helpdesk-message
                       - marketing-contact
                       - marketing-customer
                       - marketing-lead
@@ -537,6 +540,7 @@ components:
                       - helpdesk-contact
                       - helpdesk-note
                       - helpdesk-user
+                      - helpdesk-message
                       - marketing-contact
                       - marketing-customer
                       - marketing-lead
@@ -676,6 +680,7 @@ components:
                 - helpdesk-contact
                 - helpdesk-note
                 - helpdesk-user
+                - helpdesk-message
                 - marketing-contact
                 - marketing-customer
                 - marketing-lead
@@ -1002,6 +1007,7 @@ components:
             - helpdesk-contact
             - helpdesk-note
             - helpdesk-user
+            - helpdesk-message
             - marketing-contact
             - marketing-customer
             - marketing-lead
@@ -1252,6 +1258,7 @@ components:
             - helpdesk-contact
             - helpdesk-note
             - helpdesk-user
+            - helpdesk-message
             - marketing-contact
             - marketing-customer
             - marketing-lead
@@ -1429,6 +1436,7 @@ components:
             - helpdesk-contact
             - helpdesk-note
             - helpdesk-user
+            - helpdesk-message
             - marketing-contact
             - marketing-customer
             - marketing-lead
@@ -2060,6 +2068,7 @@ paths:
             - helpdesk-contact
             - helpdesk-note
             - helpdesk-user
+            - helpdesk-message
             - marketing-contact
             - marketing-customer
             - marketing-lead
@@ -2206,6 +2215,7 @@ paths:
             - helpdesk-contact
             - helpdesk-note
             - helpdesk-user
+            - helpdesk-message
             - marketing-contact
             - marketing-customer
             - marketing-lead
