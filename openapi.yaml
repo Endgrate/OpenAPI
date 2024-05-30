@@ -125,6 +125,8 @@ components:
                 - prospecting-contact
                 - workspace-task
                 - workspace-user
+                - access_point-device
+                - access_point-pin
         completed:
           type: boolean
           examples:
@@ -302,6 +304,8 @@ components:
                       - prospecting-contact
                       - workspace-task
                       - workspace-user
+                      - access_point-device
+                      - access_point-pin
                   supports_associations:
                     type: boolean
                     examples:
@@ -381,6 +385,8 @@ components:
                       - prospecting-contact
                       - workspace-task
                       - workspace-user
+                      - access_point-device
+                      - access_point-pin
                   properties:
                     type: object
                     example:
@@ -549,6 +555,8 @@ components:
                       - prospecting-contact
                       - workspace-task
                       - workspace-user
+                      - access_point-device
+                      - access_point-pin
                   supports_associations:
                     type: boolean
                     examples:
@@ -689,6 +697,8 @@ components:
                 - prospecting-contact
                 - workspace-task
                 - workspace-user
+                - access_point-device
+                - access_point-pin
         completed:
           type: boolean
           examples:
@@ -1016,6 +1026,8 @@ components:
             - prospecting-contact
             - workspace-task
             - workspace-user
+            - access_point-device
+            - access_point-pin
         properties:
           type: object
           example:
@@ -1267,6 +1279,8 @@ components:
             - prospecting-contact
             - workspace-task
             - workspace-user
+            - access_point-device
+            - access_point-pin
         params:
           type: object
           description: Optionally, filter by certain properties in your schema by specifying them here.
@@ -1445,6 +1459,8 @@ components:
             - prospecting-contact
             - workspace-task
             - workspace-user
+            - access_point-device
+            - access_point-pin
         session_id:
           type: string
           examples: 
@@ -2077,6 +2093,8 @@ paths:
             - prospecting-contact
             - workspace-task
             - workspace-user
+            - access_point-device
+            - access_point-pin
         - in: query
           name: limit
           required: false
@@ -2224,6 +2242,8 @@ paths:
             - prospecting-contact
             - workspace-task
             - workspace-user
+            - access_point-device
+            - access_point-pin
         - in: query
           name: limit
           required: false
