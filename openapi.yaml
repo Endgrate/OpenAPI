@@ -125,8 +125,8 @@ components:
                 - prospecting-contact
                 - workspace-task
                 - workspace-user
-                - access_point-device
-                - access_point-pin
+                - access_control-device
+                - access_control-pin
         completed:
           type: boolean
           examples:
@@ -304,8 +304,8 @@ components:
                       - prospecting-contact
                       - workspace-task
                       - workspace-user
-                      - access_point-device
-                      - access_point-pin
+                      - access_control-device
+                      - access_control-pin
                   supports_associations:
                     type: boolean
                     examples:
@@ -385,8 +385,8 @@ components:
                       - prospecting-contact
                       - workspace-task
                       - workspace-user
-                      - access_point-device
-                      - access_point-pin
+                      - access_control-device
+                      - access_control-pin
                   properties:
                     type: object
                     example:
@@ -555,8 +555,8 @@ components:
                       - prospecting-contact
                       - workspace-task
                       - workspace-user
-                      - access_point-device
-                      - access_point-pin
+                      - access_control-device
+                      - access_control-pin
                   supports_associations:
                     type: boolean
                     examples:
@@ -697,8 +697,8 @@ components:
                 - prospecting-contact
                 - workspace-task
                 - workspace-user
-                - access_point-device
-                - access_point-pin
+                - access_control-device
+                - access_control-pin
         completed:
           type: boolean
           examples:
@@ -1026,8 +1026,8 @@ components:
             - prospecting-contact
             - workspace-task
             - workspace-user
-            - access_point-device
-            - access_point-pin
+            - access_control-device
+            - access_control-pin
         properties:
           type: object
           example:
@@ -1279,8 +1279,8 @@ components:
             - prospecting-contact
             - workspace-task
             - workspace-user
-            - access_point-device
-            - access_point-pin
+            - access_control-device
+            - access_control-pin
         params:
           type: object
           description: Optionally, filter by certain properties in your schema by specifying them here.
@@ -1459,8 +1459,8 @@ components:
             - prospecting-contact
             - workspace-task
             - workspace-user
-            - access_point-device
-            - access_point-pin
+            - access_control-device
+            - access_control-pin
         session_id:
           type: string
           examples: 
@@ -2093,8 +2093,8 @@ paths:
             - prospecting-contact
             - workspace-task
             - workspace-user
-            - access_point-device
-            - access_point-pin
+            - access_control-device
+            - access_control-pin
         - in: query
           name: limit
           required: false
@@ -2242,8 +2242,8 @@ paths:
             - prospecting-contact
             - workspace-task
             - workspace-user
-            - access_point-device
-            - access_point-pin
+            - access_control-device
+            - access_control-pin
         - in: query
           name: limit
           required: false
