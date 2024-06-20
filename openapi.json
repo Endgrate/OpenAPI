@@ -1,0 +1,3839 @@
+{
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "TransferDataSchema": {
+        "type": "array",
+        "description": "Returned transfer data.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "The unique identifier for this resource, returned by the integration provider.",
+              "example": "68951"
+            },
+            "data": {
+              "type": "object",
+              "description": "Transfer data conforming to the specified `endgrate_type` schema.",
+              "example": {
+                "email": "susan@youtube.com",
+                "first_name": "Susan",
+                "last_name": "Wojicki",
+                "full_name": "Susan Wojicki",
+                "company": "YouTube",
+                "is_employed": true,
+                "age": 37,
+                "lifecyclestage": "lead"
+              }
+            },
+            "associations": {
+              "type": "object",
+              "description": "Associated resources keyed by `endgrate_type`.",
+              "example": {
+                "Company": [
+                  {
+                    "id": "17628450685",
+                    "data": {
+                      "name": "YouTube"
+                    }
+                  }
+                ]
+              },
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "The unique identifier for this resource, returned by the integration provider."
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Transfer data conforming to the associated `endgrate_type` schema."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "CompletedCallbackSchema": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "transfer_id": {
+            "type": "string",
+            "example": "6566e87b7cf20dca9cef0c0d"
+          },
+          "session_id": {
+            "type": "string",
+            "example": "6566e85e7cf20dca9cef0c0a"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "The metadata from ${request.body#/completed_webhook/metadata}.",
+            "example": {
+              "user_id": 1
+            }
+          },
+          "endgrate": {
+            "type": "object",
+            "properties": {
+              "endgrate_type": {
+                "type": "string",
+                "description": "A valid `endgrate_type` for the session.",
+                "examples": [
+                  "crm-contact",
+                  "accounting-customer",
+                  "accounting-vendor",
+                  "accounting-item",
+                  "accounting-purchase_order",
+                  "accounting-sales_order",
+                  "analytics-profile",
+                  "analytics-note",
+                  "analytics-page_analytics",
+                  "analytics-page_parameters",
+                  "analytics-account_analytics",
+                  "analytics-user",
+                  "ats-candidate",
+                  "calendar-event",
+                  "communication-meeting",
+                  "communication-message_history",
+                  "communication-user",
+                  "crm-activity",
+                  "crm-company",
+                  "crm-lead",
+                  "crm-opportunity",
+                  "crm-task",
+                  "crm-user",
+                  "database-user",
+                  "ecommerce-customer",
+                  "ecommerce-order",
+                  "ecommerce-product",
+                  "forms-lead",
+                  "forms-question",
+                  "helpdesk-company",
+                  "helpdesk-contact",
+                  "helpdesk-ticket",
+                  "helpdesk-user",
+                  "helpdesk-message",
+                  "marketing-contact",
+                  "marketing-user",
+                  "property_management-device",
+                  "property_management-pin",
+                  "prospecting-contact",
+                  "prospecting-company",
+                  "workspace-task",
+                  "workspace-user"
+                ]
+              }
+            }
+          },
+          "completed": {
+            "type": "boolean",
+            "example": true,
+            "description": "Success flag indicating the transfer has completed."
+          }
+        }
+      },
+      "ConfigurationCallbackSchema": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "session_id": {
+            "type": "string",
+            "example": "6566e85e7cf20dca9cef0c0a"
+          },
+          "endgrate": {
+            "type": "object",
+            "properties": {
+              "provider": {
+                "type": "string",
+                "description": "Internal integration provider name.",
+                "example": "hubspot"
+              },
+              "provider_info": {
+                "type": "object",
+                "description": "Provider information.",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "hubspot"
+                  },
+                  "display_name": {
+                    "type": "string",
+                    "example": "HubSpot"
+                  },
+                  "url": {
+                    "type": "string",
+                    "example": "https://www.hubspot.com/"
+                  },
+                  "image": {
+                    "type": "string",
+                    "example": "https://endgrate.nyc3.cdn.digitaloceanspaces.com/integration/hubspot.png"
+                  },
+                  "auth_type": {
+                    "type": "string",
+                    "example": "oauth",
+                    "enum": [
+                      "oauth",
+                      "api_key",
+                      "custom"
+                    ]
+                  },
+                  "specific": {
+                    "type": "object"
+                  },
+                  "endgrate_provider_type": {
+                    "type": "string",
+                    "description": "The category of the integration provider.",
+                    "example": "CRM"
+                  }
+                }
+              }
+            }
+          },
+          "schemas": {
+            "type": "object",
+            "description": "Schema information keyed by `endgrate_type`.",
+            "example": {
+              "contact": {
+                "integration_info": {
+                  "name": "get-contacts",
+                  "display_name": "Get Contacts",
+                  "method": "IMPORT"
+                },
+                "integration": "get-contacts",
+                "schema": {
+                  "type": "object",
+                  "endgrate_type": "crm-contact",
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "format": "email"
+                    },
+                    "first_name": {
+                      "type": "string"
+                    },
+                    "last_name": {
+                      "type": "string"
+                    },
+                    "full_name": {
+                      "type": "string"
+                    },
+                    "company": {
+                      "type": "string"
+                    },
+                    "age": {
+                      "type": "number"
+                    },
+                    "is_employed": {
+                      "type": "boolean"
+                    },
+                    "lifecyclestage": {
+                      "title": "Lifecycle Stage",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "email"
+                  ],
+                  "title": "crm-contact"
+                },
+                "passthrough_fields": {
+                  "properties": {
+                    "lifecyclestage": {
+                      "title": "Lifecycle Stage",
+                      "type": "string"
+                    },
+                    "required": []
+                  }
+                }
+              }
+            },
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "integration_info": {
+                  "type": "object",
+                  "description": "Integration information.",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "get-contacts"
+                    },
+                    "display_name": {
+                      "type": "string",
+                      "example": "Get Contacts"
+                    },
+                    "method": {
+                      "type": "string",
+                      "example": "IMPORT",
+                      "enum": [
+                        "IMPORT",
+                        "EXPORT"
+                      ]
+                    },
+                    "endgrate_type": {
+                      "type": "string",
+                      "description": "The corresponding `endgrate_type` that the schema represents.",
+                      "examples": [
+                        "crm-contact",
+                        "accounting-customer",
+                        "accounting-vendor",
+                        "accounting-item",
+                        "accounting-purchase_order",
+                        "accounting-sales_order",
+                        "analytics-profile",
+                        "analytics-note",
+                        "analytics-page_analytics",
+                        "analytics-page_parameters",
+                        "analytics-account_analytics",
+                        "analytics-user",
+                        "ats-candidate",
+                        "calendar-event",
+                        "communication-meeting",
+                        "communication-message_history",
+                        "communication-user",
+                        "crm-activity",
+                        "crm-company",
+                        "crm-lead",
+                        "crm-opportunity",
+                        "crm-task",
+                        "crm-user",
+                        "database-user",
+                        "ecommerce-customer",
+                        "ecommerce-order",
+                        "ecommerce-product",
+                        "forms-lead",
+                        "forms-question",
+                        "helpdesk-company",
+                        "helpdesk-contact",
+                        "helpdesk-ticket",
+                        "helpdesk-user",
+                        "helpdesk-message",
+                        "marketing-contact",
+                        "marketing-user",
+                        "property_management-device",
+                        "property_management-pin",
+                        "prospecting-contact",
+                        "prospecting-company",
+                        "workspace-task",
+                        "workspace-user"
+                      ]
+                    },
+                    "supports_associations": {
+                      "type": "boolean",
+                      "description": "Whether or not the integration supports associations.",
+                      "example": true
+                    }
+                  }
+                },
+                "integration": {
+                  "type": "string",
+                  "example": "get-contacts"
+                },
+                "schema": {
+                  "type": "object",
+                  "description": "Schema information.",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "endgrate_type": {
+                      "type": "string",
+                      "description": "The corresponding `endgrate_type` that the schema represents.",
+                      "examples": [
+                        "crm-contact",
+                        "accounting-customer",
+                        "accounting-vendor",
+                        "accounting-item",
+                        "accounting-purchase_order",
+                        "accounting-sales_order",
+                        "analytics-profile",
+                        "analytics-note",
+                        "analytics-page_analytics",
+                        "analytics-page_parameters",
+                        "analytics-account_analytics",
+                        "analytics-user",
+                        "ats-candidate",
+                        "calendar-event",
+                        "communication-meeting",
+                        "communication-message_history",
+                        "communication-user",
+                        "crm-activity",
+                        "crm-company",
+                        "crm-lead",
+                        "crm-opportunity",
+                        "crm-task",
+                        "crm-user",
+                        "database-user",
+                        "ecommerce-customer",
+                        "ecommerce-order",
+                        "ecommerce-product",
+                        "forms-lead",
+                        "forms-question",
+                        "helpdesk-company",
+                        "helpdesk-contact",
+                        "helpdesk-ticket",
+                        "helpdesk-user",
+                        "helpdesk-message",
+                        "marketing-contact",
+                        "marketing-user",
+                        "property_management-device",
+                        "property_management-pin",
+                        "prospecting-contact",
+                        "prospecting-company",
+                        "workspace-task",
+                        "workspace-user"
+                      ]
+                    },
+                    "properties": {
+                      "type": "object",
+                      "example": {
+                        "email": {
+                          "type": "string",
+                          "format": "email"
+                        },
+                        "first_name": {
+                          "type": "string"
+                        },
+                        "last_name": {
+                          "type": "string"
+                        },
+                        "full_name": {
+                          "type": "string"
+                        },
+                        "company": {
+                          "type": "string"
+                        },
+                        "age": {
+                          "type": "number"
+                        },
+                        "is_employed": {
+                          "type": "boolean"
+                        },
+                        "lifecyclestage": {
+                          "title": "Lifecycle Stage",
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "title": {
+                      "type": "string",
+                      "example": "Contact"
+                    }
+                  }
+                },
+                "passthrough_fields": {
+                  "type": "object",
+                  "description": "Passthrough schema information keyed by `endgrate_type`.",
+                  "properties": {
+                    "properties": {
+                      "type": "object",
+                      "example": {
+                        "lifecyclestage": {
+                          "title": "Lifecycle Stage",
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "passthrough_schemas": {
+            "type": "object",
+            "description": "Passthrough schema information keyed by `endgrate_type`.",
+            "example": {
+              "Custom Object": {
+                "integration_info": {
+                  "name": "get-custom-objects",
+                  "display_name": "Get Custom Objects",
+                  "method": "IMPORT"
+                },
+                "integration": "get-custom-objects",
+                "schema": {
+                  "type": "object",
+                  "endgrate_type": "Custom Object",
+                  "properties": {
+                    "customfield1": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "customfield1"
+                  ],
+                  "title": "Custom Object"
+                },
+                "passthrough_fields": {
+                  "properties": {
+                    "customfield1": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "customfield1"
+                  ]
+                }
+              }
+            },
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "integration_info": {
+                  "type": "object",
+                  "description": "Integration information.",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "get-custom-objects"
+                    },
+                    "display_name": {
+                      "type": "string",
+                      "example": "Get Custom Objects"
+                    },
+                    "method": {
+                      "type": "string",
+                      "example": "IMPORT",
+                      "enum": [
+                        "IMPORT",
+                        "EXPORT"
+                      ]
+                    },
+                    "endgrate_type": {
+                      "type": "string",
+                      "description": "The name of the custom object (used as the `endgrate_type`)."
+                    },
+                    "supports_associations": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "description": "JSON schema of the `endgrate_type`.",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "object",
+                      "enum": [
+                        "object"
+                      ]
+                    },
+                    "endgrate_type": {
+                      "type": "string",
+                      "example": "Custom Object"
+                    },
+                    "properties": {
+                      "type": "object"
+                    },
+                    "title": {
+                      "type": "string",
+                      "example": "Custom Object"
+                    },
+                    "session_method": {
+                      "type": "string",
+                      "example": "IMPORT"
+                    }
+                  }
+                },
+                "passthrough_fields": {
+                  "type": "object",
+                  "description": "JSON schema of passthrough fields. For passthrough schemas, all properties are passthrough fields.",
+                  "properties": {
+                    "properties": {
+                      "type": "object",
+                      "example": {
+                        "customfield1": {
+                          "title": "Custom Field 1",
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "required": {
+                      "type": "array",
+                      "example": [
+                        "customfield1"
+                      ],
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "DataCallbackSchema": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "transfer_id": {
+            "type": "string",
+            "example": "6566e87b7cf20dca9cef0c0d"
+          },
+          "session_id": {
+            "type": "string",
+            "examples": "6566e85e7cf20dca9cef0c0a"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "The metadata from ${request.body#/data_webhook/metadata}.",
+            "example": {
+              "user_id": 1
+            }
+          },
+          "endgrate": {
+            "type": "object",
+            "properties": {
+              "endgrate_type": {
+                "type": "string",
+                "description": "A valid `endgrate_type` for the session.",
+                "examples": [
+                  "crm-contact",
+                  "accounting-customer",
+                  "accounting-vendor",
+                  "accounting-item",
+                  "accounting-purchase_order",
+                  "accounting-sales_order",
+                  "analytics-profile",
+                  "analytics-note",
+                  "analytics-page_analytics",
+                  "analytics-page_parameters",
+                  "analytics-account_analytics",
+                  "analytics-user",
+                  "ats-candidate",
+                  "calendar-event",
+                  "communication-meeting",
+                  "communication-message_history",
+                  "communication-user",
+                  "crm-activity",
+                  "crm-company",
+                  "crm-lead",
+                  "crm-opportunity",
+                  "crm-task",
+                  "crm-user",
+                  "database-user",
+                  "ecommerce-customer",
+                  "ecommerce-order",
+                  "ecommerce-product",
+                  "forms-lead",
+                  "forms-question",
+                  "helpdesk-company",
+                  "helpdesk-contact",
+                  "helpdesk-ticket",
+                  "helpdesk-user",
+                  "helpdesk-message",
+                  "marketing-contact",
+                  "marketing-user",
+                  "property_management-device",
+                  "property_management-pin",
+                  "prospecting-contact",
+                  "prospecting-company",
+                  "workspace-task",
+                  "workspace-user"
+                ]
+              }
+            }
+          },
+          "completed": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether or not the transfer has completed."
+          },
+          "transfer_data": {
+            "$ref": "#/components/schemas/TransferDataSchema"
+          }
+        }
+      },
+      "ErrorListSchema": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "string",
+            "example": "65c9c40982664224123cebd5"
+          },
+          "transfer_id": {
+            "type": "string",
+            "example": "6566e87b7cf20dca9cef0c0d"
+          },
+          "session_id": {
+            "type": "string",
+            "example": "6566e85e7cf20dca9cef0c0a"
+          },
+          "timestamp": {
+            "type": "string",
+            "example": "2023-08-28T02:04:08.917Z"
+          },
+          "error_resolve_text": {
+            "type": "string",
+            "example": "The integration is missing a value for the required field: Email. Please make sure the attribute: .email that maps to this field is populated in your transfer data: {}"
+          },
+          "error_type": {
+            "type": "string",
+            "example": "transfer_data",
+            "description": "The `internal` error type indicates a problem with the internal Endgrate server. The `transfer_data` error type indicates a problem with your transfer data. The `upstream` error type indicates a problem with the upstream integration provider. The `authentication` error type indicates a problem with the user authentication credentials.",
+            "enum": [
+              "internal",
+              "transfer_data",
+              "upstream",
+              "authentication"
+            ]
+          },
+          "resolved": {
+            "type": "boolean",
+            "examples": false
+          },
+          "endgrate": {
+            "type": "object",
+            "properties": {
+              "provider_info": {
+                "type": "object",
+                "description": "Provider information.",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "examples": "hubspot"
+                  },
+                  "display_name": {
+                    "type": "string",
+                    "example": "HubSpot"
+                  },
+                  "url": {
+                    "type": "string",
+                    "example": "https://www.hubspot.com/"
+                  },
+                  "image": {
+                    "type": "string",
+                    "example": "https://endgrate.nyc3.cdn.digitaloceanspaces.com/integration/hubspot.png"
+                  },
+                  "auth_type": {
+                    "type": "string",
+                    "example": "oauth",
+                    "enum": [
+                      "oauth",
+                      "api_key",
+                      "custom"
+                    ]
+                  },
+                  "specific": {
+                    "type": "object"
+                  },
+                  "endgrate_provider_type": {
+                    "type": "string",
+                    "example": "CRM"
+                  }
+                }
+              },
+              "integration_info": {
+                "type": "object",
+                "description": "Integration information.",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "get-contacts"
+                  },
+                  "display_name": {
+                    "type": "string",
+                    "example": "Get Contacts"
+                  },
+                  "method": {
+                    "type": "string",
+                    "example": "IMPORT",
+                    "enum": [
+                      "IMPORT",
+                      "EXPORT"
+                    ]
+                  },
+                  "endgrate_type": {
+                    "type": "string",
+                    "example": "crm-contact"
+                  },
+                  "supports_associations": {
+                    "type": "boolean",
+                    "example": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "ErrorCallbackSchema": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "pk": {
+            "type": "string",
+            "example": "65c9c40982664224123cebd5"
+          },
+          "transfer_id": {
+            "type": "string",
+            "example": "6566e87b7cf20dca9cef0c0d"
+          },
+          "session_id": {
+            "type": "string",
+            "example": "6566e85e7cf20dca9cef0c0a"
+          },
+          "timestamp": {
+            "type": "string",
+            "example": "2023-08-28T02:04:08.917Z"
+          },
+          "error_resolve_text": {
+            "type": "string",
+            "example": "The integration is missing a value for the required field: Email. Please make sure the attribute: .email that maps to this field is populated in your transfer data: {}"
+          },
+          "error_type": {
+            "type": "string",
+            "example": "transfer_data",
+            "description": "The `internal` error type indicates a problem with the internal Endgrate server. The `transfer_data` error type indicates a problem with your transfer data. The `upstream` error type indicates a problem with the upstream integration provider. The `authentication` error type indicates a problem with the user authentication credentials.",
+            "enum": [
+              "internal",
+              "transfer_data",
+              "upstream",
+              "authentication"
+            ]
+          },
+          "resolved": {
+            "type": "boolean",
+            "example": false
+          },
+          "endgrate": {
+            "type": "object",
+            "properties": {
+              "provider_info": {
+                "type": "object",
+                "description": "Provider information.",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "hubspot"
+                  },
+                  "display_name": {
+                    "type": "string",
+                    "example": "HubSpot"
+                  },
+                  "url": {
+                    "type": "string",
+                    "example": "https://www.hubspot.com/"
+                  },
+                  "image": {
+                    "type": "string",
+                    "example": "https://endgrate.nyc3.cdn.digitaloceanspaces.com/integration/hubspot.png"
+                  },
+                  "auth_type": {
+                    "type": "string",
+                    "example": "oauth",
+                    "enum": [
+                      "oauth",
+                      "api_key",
+                      "custom"
+                    ]
+                  },
+                  "specific": {
+                    "type": "object"
+                  },
+                  "endgrate_provider_type": {
+                    "type": "string",
+                    "example": "CRM"
+                  }
+                }
+              },
+              "integration_info": {
+                "type": "object",
+                "description": "Integration information.",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "get-contacts"
+                  },
+                  "display_name": {
+                    "type": "string",
+                    "example": "Get Contacts"
+                  },
+                  "method": {
+                    "type": "string",
+                    "example": "IMPORT",
+                    "enum": [
+                      "IMPORT",
+                      "EXPORT"
+                    ]
+                  },
+                  "endgrate_type": {
+                    "type": "string",
+                    "example": "crm-contact"
+                  },
+                  "supports_associations": {
+                    "type": "boolean",
+                    "example": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "DataWebhookSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "continuous": {
+            "type": "boolean",
+            "description": "Whether or not to allow Endgrate to continuously trigger transfers on your behalf, polling for new data every 15 minutes.",
+            "example": true
+          },
+          "endpoint": {
+            "type": "string",
+            "example": "https://httpbin.org/post"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Any information to be passed back in the webhook call.",
+            "example": {
+              "user_id": 1
+            }
+          }
+        },
+        "required": [
+          "endpoint"
+        ],
+        "title": "DataWebhookSchema",
+        "type": "object"
+      },
+      "TransferResponseSchema": {
+        "title": "TransferResponseSchema",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "transfer_id": {
+            "type": "string"
+          },
+          "statistics": {
+            "type": "string"
+          }
+        }
+      },
+      "EndgrateJsonSchema": {
+        "title": "EndgrateJsonSchema",
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Schema information.",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "object",
+            "enum": [
+              "object"
+            ]
+          },
+          "endgrate_type": {
+            "type": "string",
+            "description": "The `endgrate_type` of the schema.",
+            "examples": [
+              "crm-contact",
+              "accounting-customer",
+              "accounting-vendor",
+              "accounting-item",
+              "accounting-purchase_order",
+              "accounting-sales_order",
+              "analytics-profile",
+              "analytics-note",
+              "analytics-page_analytics",
+              "analytics-page_parameters",
+              "analytics-account_analytics",
+              "analytics-user",
+              "ats-candidate",
+              "calendar-event",
+              "communication-meeting",
+              "communication-message_history",
+              "communication-user",
+              "crm-activity",
+              "crm-company",
+              "crm-lead",
+              "crm-opportunity",
+              "crm-task",
+              "crm-user",
+              "database-user",
+              "ecommerce-customer",
+              "ecommerce-order",
+              "ecommerce-product",
+              "forms-lead",
+              "forms-question",
+              "helpdesk-company",
+              "helpdesk-contact",
+              "helpdesk-ticket",
+              "helpdesk-user",
+              "helpdesk-message",
+              "marketing-contact",
+              "marketing-user",
+              "property_management-device",
+              "property_management-pin",
+              "prospecting-contact",
+              "prospecting-company",
+              "workspace-task",
+              "workspace-user"
+            ]
+          },
+          "properties": {
+            "type": "object",
+            "example": {
+              "email": {
+                "type": "string",
+                "format": "email"
+              },
+              "first_name": {
+                "type": "string"
+              },
+              "last_name": {
+                "type": "string"
+              },
+              "full_name": {
+                "type": "string"
+              },
+              "company": {
+                "type": "string"
+              },
+              "age": {
+                "type": "number"
+              },
+              "is_employed": {
+                "type": "boolean"
+              },
+              "lifecyclestage": {
+                "title": "Lifecycle Stage",
+                "type": "string"
+              }
+            }
+          },
+          "required": {
+            "type": "array",
+            "example": [
+              "email"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "title": {
+            "type": "string",
+            "description": "The `title` of this schema that will be displayed to the user. If specified, this value should be used as a substitute for the `endgrate_type` in subsequent API calls.",
+            "example": "Contact"
+          }
+        }
+      },
+      "DefaultSuccessSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "session_id": {
+            "type": "string"
+          }
+        },
+        "title": "DefaultSuccessSchema",
+        "type": "object"
+      },
+      "DeleteSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "session_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "session_id"
+        ],
+        "title": "DeleteSchema",
+        "type": "object"
+      },
+      "Error": {
+        "additionalProperties": false,
+        "properties": {
+          "errors": {
+            "type": "object"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "title": "Error",
+        "type": "object"
+      },
+      "PullInitiateSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "completed_webhook": {
+            "description": "Endgrate will POST to this webhook whenever a transfer is completed. This is useful if you want to display a completion message to your users.",
+            "$ref": "#/components/schemas/WebhookSchema"
+          },
+          "configuration_webhook": {
+            "description": "Endgrate will POST to this webhook when the session is configured by the user. This is useful if you want to get the integration provider chosen, any passthrough schemas, or passthrough fields without polling the GET api/session/configuration endpoint.",
+            "$ref": "#/components/schemas/WebhookSchema"
+          },
+          "data_webhook": {
+            "description": "Endgrate will POST to this webhook whenever new data is received. This is useful if you want to get transfer data without polling the GET api/pull/data endpoint.",
+            "$ref": "#/components/schemas/DataWebhookSchema"
+          },
+          "error_webhook": {
+            "description": "Endgrate will POST to this webhook whenever an error occurs. This is useful if you want to get error information without polling the GET api/errors endpoint.",
+            "$ref": "#/components/schemas/WebhookSchema"
+          },
+          "field_selection": {
+            "description": "Whether or not to allow the user to configure field mapping. See https://documentation.endgrate.com/docs/ux-customization#field-selection for more information.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          },
+          "passthrough_fields": {
+            "description": "Whether or not passthrough fields are allowed. See https://documentation.endgrate.com/docs/passthrough-fields for more information.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          },
+          "passthrough_schemas": {
+            "description": "Whether or not passthrough schemas are allowed. See https://documentation.endgrate.com/docs/passthrough-schemas for more information.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          },
+          "sync": {
+            "description": "Whether or not to return only updated (new) data when pulling data. See https://documentation.endgrate.com/docs/sync for more information.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          },
+          "provider": {
+            "description": "An integration provider. If specified, the user will not be shown the integration provider selection page and instead will be directed to the integration provider authentication page.",
+            "type": "string",
+            "example": "hubspot"
+          },
+          "redirect_url": {
+            "description": "A URL that users will be redirected to after setting up the session. This is useful if you want to redirect your users back to your app.",
+            "type": "string",
+            "example": "https://www.google.com/"
+          },
+          "resource_selection": {
+            "description": "Whether or not to allow the user to choose the integrations for a given schema (e.g. choosing \"Get Contacts\" for a contact schema). See https://documentation.endgrate.com/docs/ux-customization#resource-selection for more information.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          },
+          "save_session": {
+            "description": "Whether or not the session should be persisted permanently. If false, sessions will expire after 72 hours.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          },
+          "category": {
+            "description": "An integration category. If specified, all common data model schemas from the category will be added for this session.",
+            "type": "string",
+            "examples": [
+              "crm",
+              "ecommerce",
+              "helpdesk"
+            ],
+            "enum": [
+              "accounting",
+              "analytics",
+              "ats",
+              "calendar",
+              "communication",
+              "crm",
+              "database",
+              "ecommerce",
+              "forms",
+              "helpdesk",
+              "marketing",
+              "prospecting",
+              "workspace"
+            ]
+          },
+          "schema": {
+            "description": "An array of schemas to be pulled in.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EndgrateJsonSchema"
+            }
+          },
+          "schema_selection": {
+            "description": "Whether or not to allow the user to choose which schemas to pull in. See https://documentation.endgrate.com/docs/ux-customization#resource-selection for more information.",
+            "type": "boolean",
+            "default": false,
+            "examples": false
+          },
+          "statistics": {
+            "description": "Whether or not to allow the user to see transfer statistics. See https://documentation.endgrate.com/docs/ux-customization#resource-selection for more information.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          },
+          "webhook_concurrency": {
+            "description": "Whether or not to execute POST requests to webhooks concurrently.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          }
+        },
+        "title": "PullInitiateSchema",
+        "type": "object"
+      },
+      "PullTransferSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "associations": {
+            "type": "object",
+            "description": "An object specifying which `endgrate_type`s to get associated resource data for.",
+            "example": {
+              "crm-company": true
+            }
+          },
+          "endgrate_type": {
+            "type": "string",
+            "description": "A valid `endgrate_type` for the session.",
+            "examples": [
+              "crm-contact",
+              "accounting-customer",
+              "accounting-vendor",
+              "accounting-item",
+              "accounting-purchase_order",
+              "accounting-sales_order",
+              "analytics-profile",
+              "analytics-note",
+              "analytics-page_analytics",
+              "analytics-page_parameters",
+              "analytics-account_analytics",
+              "analytics-user",
+              "ats-candidate",
+              "calendar-event",
+              "communication-meeting",
+              "communication-message_history",
+              "communication-user",
+              "crm-activity",
+              "crm-company",
+              "crm-lead",
+              "crm-opportunity",
+              "crm-task",
+              "crm-user",
+              "database-user",
+              "ecommerce-customer",
+              "ecommerce-order",
+              "ecommerce-product",
+              "forms-lead",
+              "forms-question",
+              "helpdesk-company",
+              "helpdesk-contact",
+              "helpdesk-ticket",
+              "helpdesk-user",
+              "helpdesk-message",
+              "marketing-contact",
+              "marketing-user",
+              "property_management-device",
+              "property_management-pin",
+              "prospecting-contact",
+              "prospecting-company",
+              "workspace-task",
+              "workspace-user"
+            ]
+          },
+          "params": {
+            "type": "object",
+            "description": "Optionally, filter by certain properties in your schema by specifying them here.",
+            "example": {
+              "first_name": "Bob"
+            }
+          },
+          "session_id": {
+            "type": "string",
+            "example": "6566e85e7cf20dca9cef0c0a"
+          },
+          "synchronous": {
+            "description": "Whether or not to make this API request synchronous. If true, Endgrate will poll the status of the transfer internally, and return a response only when the transfer is completed, with a 5 minute maximum polling time.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          }
+        },
+        "required": [
+          "endgrate_type",
+          "session_id"
+        ],
+        "title": "PullTransferSchema",
+        "type": "object"
+      },
+      "PushInitiateSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "completed_webhook": {
+            "description": "Endgrate will POST to this webhook whenever a transfer is completed. This is useful if you want to display a completion message to your users.",
+            "$ref": "#/components/schemas/WebhookSchema"
+          },
+          "configuration_webhook": {
+            "description": "Endgrate will POST to this webhook when the session is configured by the user. This is useful if you want to get the integration provider chosen, any passthrough schemas, or passthrough fields without polling the GET api/session/configuration endpoint.",
+            "$ref": "#/components/schemas/WebhookSchema"
+          },
+          "error_webhook": {
+            "description": "Endgrate will POST to this webhook whenever an error occurs. This is useful if you want to get error information without polling the GET api/errors endpoint.",
+            "$ref": "#/components/schemas/WebhookSchema"
+          },
+          "field_selection": {
+            "description": "Whether or not to allow the user to configure field mapping. See https://documentation.endgrate.com/docs/ux-customization#field-selection for more information.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          },
+          "provider": {
+            "description": "A pre-selected integration provider. If specified, the user will be directly redirected to the specific authentication page.",
+            "type": "string",
+            "example": "hubspot"
+          },
+          "redirect_url": {
+            "description": "A URL that users will be redirected to after setting up the session. This is useful if you want to redirect your users back to your app.",
+            "type": "string",
+            "example": "https://www.google.com"
+          },
+          "resource_selection": {
+            "description": "Whether or not to allow the user to choose the integrations for a given schema (e.g. choosing \"Get Contacts\" for a contact schema). See https://documentation.endgrate.com/docs/ux-customization#resource-selection for more information.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          },
+          "save_session": {
+            "description": "Whether or not the session should be persisted permanently. If false, sessions will expire after 72 hours.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+
+          },
+          "category": {
+            "description": "An integration category. If specified, all common data model schemas from the category will be added for this session.",
+            "type": "string",
+            "examples": [
+              "crm",
+              "ecommerce",
+              "helpdesk"
+            ],
+            "enum": [
+              "accounting",
+              "analytics",
+              "ats",
+              "calendar",
+              "communication",
+              "crm",
+              "database",
+              "ecommerce",
+              "forms",
+              "helpdesk",
+              "marketing",
+              "prospecting",
+              "workspace"
+            ]
+          },
+          "schema": {
+            "description": "An array of schemas to be pushed out.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EndgrateJsonSchema"
+            }
+          },
+          "schema_selection": {
+            "description": "Whether or not to allow the user to choose which schemas to push out. See https://documentation.endgrate.com/docs/ux-customization#resource-selection for more information.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          },
+          "statistics": {
+            "description": "Whether or not to allow the user to see transfer statistics. See https://documentation.endgrate.com/docs/ux-customization#resource-selection for more information.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          },
+          "webhook_concurrency": {
+            "description": "Whether or not to execute POST requests to webhooks concurrently.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          }
+        },
+        "title": "PushInitiateSchema",
+        "type": "object"
+      },
+      "PushTransferSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "endgrate_type": {
+            "type": "string",
+            "description": "A valid `endgrate_type` for the session.",
+            "examples": [
+              "crm-contact",
+              "accounting-customer",
+              "accounting-vendor",
+              "accounting-item",
+              "accounting-purchase_order",
+              "accounting-sales_order",
+              "analytics-profile",
+              "analytics-note",
+              "analytics-page_analytics",
+              "analytics-page_parameters",
+              "analytics-account_analytics",
+              "analytics-user",
+              "ats-candidate",
+              "calendar-event",
+              "communication-meeting",
+              "communication-message_history",
+              "communication-user",
+              "crm-activity",
+              "crm-company",
+              "crm-lead",
+              "crm-opportunity",
+              "crm-task",
+              "crm-user",
+              "database-user",
+              "ecommerce-customer",
+              "ecommerce-order",
+              "ecommerce-product",
+              "forms-lead",
+              "forms-question",
+              "helpdesk-company",
+              "helpdesk-contact",
+              "helpdesk-ticket",
+              "helpdesk-user",
+              "helpdesk-message",
+              "marketing-contact",
+              "marketing-user",
+              "property_management-device",
+              "property_management-pin",
+              "prospecting-contact",
+              "prospecting-company",
+              "workspace-task",
+              "workspace-user"
+            ]
+          },
+          "session_id": {
+            "type": "string",
+            "example":"6566e85e7cf20dca9cef0c0a"
+          },
+          "synchronous": {
+            "description": "Whether or not to make this API request synchronous. If true, If true, Endgrate will poll the status of the transfer internally, and return only when the transfer is completed, with a 5 minute maximum polling time.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          },
+          "transfer_data": {
+            "description": "An array of transfer data to be pushed out.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": "The unique identifier of the resource, returned by the integration provider. If specified, Endgrate will update the existing resource.",
+                "internal_id": "Your own unique identifier for this resource. If specified, Endgrate will use this identifier to keep track of when to update existing resources.",
+                "data": {
+                  "type": "object",
+                  "description": "Transfer data conforming to the specified `endgrate_type` schema.",
+                  "example": {
+                      "first_name": "Bob",
+                      "last_name": "Smith"
+                    }
+                },
+                "associations": {
+                  "example": {
+                    "crm-company": [
+                      {
+                        "data": {
+                            "name": "YouTube"
+                        }
+                      }
+                    ]
+                  },
+                  "type": "object",
+                  "description": "Associated transfer data keyed by `endgrate_type`.",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": "The unique identifier of the resource, returned by the integration provider. If specified, Endgrate will update the existing resource.",
+                        "internal_id": "Your own unique identifier for this resource. If specified, Endgrate will use this identifier to keep track of when to update existing resources.",
+                        "data": {
+                          "type": "object",
+                          "description": "Transfer data conforming to the specified `endgrate_type` schema."
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "data"
+              ]
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "endgrate_type",
+          "transfer_data",
+          "session_id"
+        ],
+        "title": "PushTransferSchema",
+        "type": "object"
+      },
+      "SessionInitiateSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "category": {
+            "description": "An integration category. If specified, all common data model schemas from the category will be added for this session.",
+            "type": "string",
+            "examples": [
+              "crm",
+              "ecommerce",
+              "helpdesk"
+            ],
+            "enum": [
+              "accounting",
+              "analytics",
+              "ats",
+              "calendar",
+              "communication",
+              "crm",
+              "database",
+              "ecommerce",
+              "forms",
+              "helpdesk",
+              "marketing",
+              "prospecting",
+              "workspace"
+            ]
+          },
+          "completed_webhook": {
+            "description": "Endgrate will POST to this webhook whenever a transfer is completed.",
+            "$ref": "#/components/schemas/WebhookSchema"
+          },
+          "configuration_webhook": {
+            "description": "Endgrate will POST to this webhook when the session is configured by the user.",
+            "$ref": "#/components/schemas/WebhookSchema"
+          },
+          "data_webhook": {
+            "description": "Endgrate will POST to this webhook whenever new data is received.",
+            "$ref": "#/components/schemas/DataWebhookSchema"
+          },
+          "error_webhook": {
+            "description": "Endgrate will POST to this webhook whenever an error occurs.",
+            "$ref": "#/components/schemas/WebhookSchema"
+          },
+          "field_selection": {
+            "description": "Whether or not to allow the user to configure field mapping. See https://documentation.endgrate.com/docs/ux-customization#field-selection for more information.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          },
+          "passthrough_fields": {
+            "description": "Whether or not passthrough fields are allowed. See https://documentation.endgrate.com/docs/passthrough-fields for more information.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          },
+          "passthrough_schemas": {
+            "description": "Whether or not passthrough schemas are allowed. See https://documentation.endgrate.com/docs/passthrough-schemas for more information.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          },
+          "sync": {
+            "description": "Whether or not to return only updated (new) data when pulling data. See https://documentation.endgrate.com/docs/sync for more information.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          },
+          "provider": {
+            "description": "An integration provider. If specified, the user will not be shown the integration provider selection page and instead will be directed to the integration provider authentication page.",
+            "type": "string",
+            "example": "hubspot"
+          },
+          "redirect_url": {
+            "description": "A URL that users will be redirected to after setting up the session. This is useful if you want to redirect your users back to your app.",
+            "type": "string",
+            "example": "https://www.google.com"
+          },
+          "resource_selection": {
+            "description": "Whether or not to allow the user to choose the integrations for a given schema (e.g. choosing \"Get Contacts\" for a contact schema). See https://documentation.endgrate.com/docs/ux-customization#resource-selection for more information.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          },
+          "save_session": {
+            "description": "Whether or not the session should be persisted permanently. If false, sessions will expire after 72 hours.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          },
+          "schema": {
+            "description": "An array of schemas.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EndgrateJsonSchema"
+            }
+          },
+          "schema_selection": {
+            "description": "Whether or not to allow the user to choose which schemas to pull in and push out. See https://documentation.endgrate.com/docs/ux-customization#resource-selection for more information.",
+            "type": "boolean",
+            "default": false,
+            "examples": false
+          },
+          "statistics": {
+            "description": "Whether or not to allow the user to see transfer statistics. See https://documentation.endgrate.com/docs/ux-customization#resource-selection for more information.",
+            "type": "boolean",
+            "default": false,
+            "examples": false
+          },
+          "webhook_concurrency": {
+            "description": "Whether or not to execute POST requests to webhooks concurrently.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          }
+        },
+        "title": "SessionInitiateSchema",
+        "type": "object"
+      },
+      "WebhookSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "endpoint": {
+            "type": "string",
+            "example": "https://httpbin.org/post"
+
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Any information to be passed back in the webhook call.",
+            "example": {
+              "user_id": 1
+            }
+          }
+        },
+        "required": [
+          "endpoint"
+        ],
+        "title": "WebhookSchema",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "title": "Endgrate API",
+    "version": "1.0.0",
+    "description": "Endgrate API Reference",
+    "termsOfService": "https://dashboard.endgrate.com/terms",
+    "contact": {
+      "email": "team@endgrate.com",
+      "name": "Endgrate Team"
+    }
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/errors": {
+      "get": {
+        "tags": [
+          "Metadata"
+        ],
+        "summary": "Get Error Logs",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "operationId": "get_api_errors",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "example": 250,
+            "schema": {
+              "maximum": 250,
+              "minimum": 1,
+              "type": "integer",
+              "default": 250
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "example": 500,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "in": "query",
+            "name": "session_id",
+            "description": "If specified, only errors for the corresponding session will be returned.",
+            "required": false,
+            "example": "6566e85e7cf20dca9cef0c0a",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "transfer_id",
+            "description": "If specified, only errors for the corresponding transfer will be returned.",
+            "required": false,
+            "example": "6566e87b7cf20dca9cef0c0d",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "examples": 1000
+                        },
+                        "previous": {
+                          "type": "object",
+                          "properties": {
+                            "offset": {
+                              "type": "integer",
+                              "examples": 100
+                            }
+                          }
+                        },
+                        "next": {
+                          "type": "object",
+                          "properties": {
+                            "offset": {
+                              "type": "integer",
+                              "examples": 300
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ErrorListSchema"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/api/integrations": {
+      "get": {
+        "tags": [
+          "Metadata"
+        ],
+        "summary": "Get Integrations",
+        "security": [],
+        "operationId": "get_api_integrations",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "provider",
+            "description": "If specified, only integrations for the corresponding integration provider will be returned.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "hubspot"
+            }
+          },
+          {
+            "in": "query",
+            "name": "category",
+            "description": "If specified, only integrations for the corresponding category will be returned.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "CRM"
+            }
+          },
+          {
+            "in": "query",
+            "name": "session_id",
+            "description": "If specified, only integrations for the corresponding session will be returned. If applicable, custom objects for the session will be included in the response.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "6566e85e7cf20dca9cef0c0a"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "providers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "provider": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string",
+                                "example": "hubspot"
+                              },
+                              "display_name": {
+                                "type": "string",
+                                "example": "HubSpot"
+                              },
+                              "url": {
+                                "type": "string",
+                                "example": "https://www.hubspot.com/"
+                              },
+                              "image": {
+                                "type": "string",
+                                "example": "https://endgrate.nyc3.cdn.digitaloceanspaces.com/integration/hubspot.png"
+                              },
+                              "auth_type": {
+                                "type": "string",
+                                "example": "oauth",
+                                "enum": [
+                                  "oauth",
+                                  "api_key",
+                                  "custom"
+                                ]
+                              },
+                              "specific": {
+                                "type": "object"
+                              },
+                              "endgrate_provider_type": {
+                                "type": "string",
+                                "example": "CRM"
+                              }
+                            }
+                          },
+                          "integrations": {
+                            "type": "array",
+                            "items": {
+                              "properties": {
+                                "display_name": {
+                                  "type": "string",
+                                  "example": "Contact"
+                                },
+                                "endgrate_type": {
+                                  "type": "string",
+                                  "example": "crm-contact"
+                                },
+                                "supports_push": {
+                                  "type": "boolean",
+                                  "example": true
+                                },
+                                "supports_pull": {
+                                  "type": "boolean",
+                                  "example": true
+                                },
+                                "is_custom_object": {
+                                  "type": "boolean",
+                                  "example": false
+                                },
+                                "supports_associations": {
+                                  "type": "boolean",
+                                  "example": true
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/api/pull/initiate": {
+      "post": {
+        "tags": [
+          "Session"
+        ],
+        "summary": "Initiate Pull Session",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "operationId": "post_api_pull_initiate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PullInitiateSchema"
+              },
+              "examples": {
+                "Simple": {
+                  "value": {
+                    "schema": [
+                      {
+                        "endgrate_type": "crm-contact"
+                      }
+                    ]
+                  }
+                },
+                "Enable All UX Screens": {
+                  "value": {
+                    "field_selection": true,
+                    "resource_selection": true,
+                    "schema": [
+                      {
+                        "endgrate_type": "crm-contact"
+                      }
+                    ],
+                    "schema_selection": true
+                  }
+                },
+                "Enable Sync": {
+                  "value": {
+                    "schema": [
+                      {
+                        "endgrate_type": "crm-contact"
+                      }
+                    ],
+                    "sync": true,
+                    "save_session": true
+                  }
+                },
+                "Enable Passthrough": {
+                  "value": {
+                    "field_selection": true,
+                    "resource_selection": true,
+                    "schema": [
+                      {
+                        "endgrate_type": "crm-contact"
+                      }
+                    ],
+                    "passthrough_fields": true,
+                    "passthrough_schemas": true,
+                    "schema_selection": true
+                  }
+                },
+                "Comprehensive": {
+                  "value": {
+                    "completed_webhook": {
+                      "endpoint": "https://httpbin.org/post",
+                      "metadata": {
+                        "user_id": 1
+                      }
+                    },
+                    "configuration_webhook": {
+                      "endpoint": "https://httpbin.org/post",
+                      "metadata": {
+                        "user_id": 1
+                      }
+                    },
+                    "data_webhook": {
+                      "endpoint": "https://httpbin.org/post",
+                      "metadata": {
+                        "user_id": 1
+                      }
+                    },
+                    "error_webhook": {
+                      "endpoint": "https://httpbin.org/post",
+                      "metadata": {
+                        "user_id": 1
+                      }
+                    },
+                    "field_selection": false,
+                    "passthrough_fields": false,
+                    "passthrough_schemas": false,
+                    "sync": false,
+                    "provider": "hubspot",
+                    "redirect_url": "https://www.google.com/",
+                    "resource_selection": false,
+                    "save_session": false,
+                    "schema": [
+                      {
+                        "endgrate_type": "crm-contact"
+                      }
+                    ],
+                    "schema_selection": false,
+                    "statistics": false,
+                    "webhook_concurrency": false
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "callbacks": {
+          "completed_webhook": {
+            "{$request.body#/completed_webhook/url}": {
+              "post": {
+                "summary": "Endgrate will POST to this webhook whenever a transfer is completed. This is useful if you want to display a completion message to your users.",
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/CompletedCallbackSchema"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "Process callback"
+                  }
+                }
+              }
+            }
+          },
+          "configuration_webhook": {
+            "{$request.body#/configuration_webhook/url}": {
+              "post": {
+                "summary": "Endgrate will POST to this webhook when the session is configured by the user. This is useful if you want to get the integration provider chosen, any passthrough schemas, or passthrough fields without polling the GET api/session/configuration endpoint.",
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "metadata": {
+                                "type": "object",
+                                "description": "The metadata from ${request.body#/data_webhook/metadata}.",
+                                "example": {
+                                  "user_id": 1
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "$ref": "#/components/schemas/ConfigurationCallbackSchema"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "Process callback"
+                  }
+                }
+              }
+            }
+          },
+          "data_webhook": {
+            "{$request.body#/data_webhook/url}": {
+              "post": {
+                "summary": "Endgrate will POST to this webhook whenever new data is received. This is useful if you want to get transfer data without polling the GET api/pull/data endpoint.",
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/DataCallbackSchema"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "Process callback"
+                  }
+                }
+              }
+            }
+          },
+          "error_webhook": {
+            "{$request.body.error_webhook/url}": {
+              "post": {
+                "summary": "Endgrate will POST to this webhook whenever an error occurs. This endpoint is useful if you want to get error information without polling the GET api/errors endpoint.",
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "metadata": {
+                                "type": "object",
+                                "description": "The metadata from ${request.body#/error_webhook/metadata}.",
+                                "example": {
+                                  "user_id": 1
+                                }
+                              },
+                              "success": {
+                                "type": "boolean",
+                                "example": true
+                              }
+                            }
+                          },
+                          {
+                            "$ref": "#/components/schemas/ErrorCallbackSchema"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "Process callback"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultSuccessSchema"
+                },
+                "example": {
+                  "success": true,
+                  "session_id": "6566e85e7cf20dca9cef0c0a"
+                }
+              }
+            }
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/api/pull/data": {
+      "get": {
+        "tags": [
+          "Transfer"
+        ],
+        "summary": "Get Pull Data",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "operationId": "get_api_pull_data",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "endgrate_type",
+            "required": true,
+            "description": "A valid `endgrate_type` for the session.",
+            "schema": {
+              "type": "string",
+              "examples": [
+                "crm-contact",
+                "accounting-customer",
+                "accounting-vendor",
+                "accounting-item",
+                "accounting-purchase_order",
+                "accounting-sales_order",
+                "analytics-profile",
+                "analytics-note",
+                "analytics-page_analytics",
+                "analytics-page_parameters",
+                "analytics-account_analytics",
+                "analytics-user",
+                "ats-candidate",
+                "calendar-event",
+                "communication-meeting",
+                "communication-message_history",
+                "communication-user",
+                "crm-activity",
+                "crm-company",
+                "crm-lead",
+                "crm-opportunity",
+                "crm-task",
+                "crm-user",
+                "database-user",
+                "ecommerce-customer",
+                "ecommerce-order",
+                "ecommerce-product",
+                "forms-lead",
+                "forms-question",
+                "helpdesk-company",
+                "helpdesk-contact",
+                "helpdesk-ticket",
+                "helpdesk-user",
+                "helpdesk-message",
+                "marketing-contact",
+                "marketing-user",
+                "property_management-device",
+                "property_management-pin",
+                "prospecting-contact",
+                "prospecting-company",
+                "workspace-task",
+                "workspace-user"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "example": 250,
+            "schema": {
+              "maximum": 250,
+              "minimum": 1,
+              "type": "integer",
+              "default": 250
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "example": 500,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "in": "query",
+            "name": "transfer_id",
+            "required": true,
+            "example": "6566e89b7cf20dca9cef0c10",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "meta": {
+                      "type": "object",
+                      "description": "Paging metadata.",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "examples": 1000
+                        },
+                        "previous": {
+                          "type": "object",
+                          "properties": {
+                            "offset": {
+                              "type": "integer",
+                              "examples": 100
+                            },
+                            "link": {
+                              "type": "string",
+                              "examples": "https://endgrate.com/api/pull/data?transfer_id=abcabc123123abcabc123123&limit=100&offset=100"
+                            }
+                          }
+                        },
+                        "next": {
+                          "type": "object",
+                          "properties": {
+                            "offset": {
+                              "type": "integer",
+                              "examples": 300
+                            },
+                            "link": {
+                              "type": "string",
+                              "example": "https://endgrate.com/api/pull/data?transfer_id=abcabc123123abcabc123123&limit=100&offset=300"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "transfer_data": {
+                      "$ref": "#/components/schemas/TransferDataSchema"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Transfer has not yet completed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Transfer has not yet completed."
+                }
+              }
+            }
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/api/push/data": {
+      "get": {
+        "tags": [
+          "Transfer"
+        ],
+        "summary": "Get Push Data",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "operationId": "get_api_push_data",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "endgrate_type",
+            "required": true,
+            "description": "A valid `endgrate_type` for the session.",
+            "schema": {
+              "type": "string",
+              "examples": [
+                "crm-contact",
+                "accounting-customer",
+                "accounting-vendor",
+                "accounting-item",
+                "accounting-purchase_order",
+                "accounting-sales_order",
+                "analytics-profile",
+                "analytics-note",
+                "analytics-page_analytics",
+                "analytics-page_parameters",
+                "analytics-account_analytics",
+                "analytics-user",
+                "ats-candidate",
+                "calendar-event",
+                "communication-meeting",
+                "communication-message_history",
+                "communication-user",
+                "crm-activity",
+                "crm-company",
+                "crm-lead",
+                "crm-opportunity",
+                "crm-task",
+                "crm-user",
+                "database-user",
+                "ecommerce-customer",
+                "ecommerce-order",
+                "ecommerce-product",
+                "forms-lead",
+                "forms-question",
+                "helpdesk-company",
+                "helpdesk-contact",
+                "helpdesk-ticket",
+                "helpdesk-user",
+                "helpdesk-message",
+                "marketing-contact",
+                "marketing-user",
+                "property_management-device",
+                "property_management-pin",
+                "prospecting-contact",
+                "prospecting-company",
+                "workspace-task",
+                "workspace-user"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "example": 250,
+            "schema": {
+              "maximum": 250,
+              "minimum": 1,
+              "type": "integer",
+              "default": 250
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "example": 500,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "in": "query",
+            "name": "transfer_id",
+            "required": true,
+            "example": "6566e89b7cf20dca9cef0c10",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "meta": {
+                      "type": "object",
+                      "description": "Paging metadata.",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "examples": 1000
+                        },
+                        "previous": {
+                          "type": "object",
+                          "properties": {
+                            "offset": {
+                              "type": "integer",
+                              "example": 100
+                            },
+                            "link": {
+                              "type": "string",
+                              "example": "https://endgrate.com/api/pull/data?transfer_id=abcabc123123abcabc123123&limit=100&offset=100"
+                            }
+                          }
+                        },
+                        "next": {
+                          "type": "object",
+                          "properties": {
+                            "offset": {
+                              "type": "integer",
+                              "example": 300
+                            },
+                            "link": {
+                              "type": "string",
+                              "example": "https://endgrate.com/api/pull/data?transfer_id=abcabc123123abcabc123123&limit=100&offset=300"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "transfer_data": {
+                      "$ref": "#/components/schemas/TransferDataSchema"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Transfer has not yet completed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Transfer has not yet completed."
+                }
+              }
+            }
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/api/pull/transfer": {
+      "post": {
+        "tags": [
+          "Transfer"
+        ],
+        "summary": "Trigger Pull",
+        "operationId": "post_api_pull_transfer",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PullTransferSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransferResponseSchema"
+                },
+                "example": {
+                  "success": true,
+                  "transfer_id": "6566e87b7cf20dca9cef0c0d",
+                  "statistics": "https://endgrate.com/statistics?transfer_id=6566e87b7cf20dca9cef0c0d\""
+                }
+              }
+            }
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/api/push/initiate": {
+      "post": {
+        "tags": [
+          "Session"
+        ],
+        "summary": "Initiate Push Session",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "operationId": "post_api_push_initiate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PushInitiateSchema"
+              },
+              "examples": {
+                "Simple": {
+                  "value": {
+                    "schema": [
+                      {
+                        "endgrate_type": "crm-contact"
+                      }
+                    ]
+                  }
+                },
+                "Enable All UX Screens": {
+                  "value": {
+                    "field_selection": true,
+                    "resource_selection": true,
+                    "schema": [
+                      {
+                        "endgrate_type": "crm-contact"
+                      }
+                    ],
+                    "schema_selection": true
+                  }
+                },
+                "Enable Save Session": {
+                  "value": {
+                    "schema": [
+                      {
+                        "endgrate_type": "crm-contact"
+                      }
+                    ],
+                    "save_session": true
+                  }
+                },
+                "Comprehensive": {
+                  "value": {
+                    "completed_webhook": {
+                      "endpoint": "https://httpbin.org/post",
+                      "metadata": {
+                        "user_id": 1
+                      }
+                    },
+                    "configuration_webhook": {
+                      "endpoint": "https://httpbin.org/post",
+                      "metadata": {
+                        "user_id": 1
+                      }
+                    },
+                    "error_webhook": {
+                      "endpoint": "https://httpbin.org/post",
+                      "metadata": {
+                        "user_id": 1
+                      }
+                    },
+                    "field_selection": false,
+                    "provider": "hubspot",
+                    "redirect_url": "https://www.google.com/",
+                    "resource_selection": false,
+                    "save_session": false,
+                    "schema": [
+                      {
+                        "endgrate_type": "crm-contact"
+                      }
+                    ],
+                    "schema_selection": false,
+                    "statistics": false,
+                    "webhook_concurrency": false
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "callbacks": {
+          "completed_webhook": {
+            "{$request.body#/completed_webhook/url}": {
+              "post": {
+                "summary": "Endgrate will POST to this webhook whenever a transfer is completed. This is useful if you want to display a completion message to your users.",
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/CompletedCallbackSchema"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "Process callback"
+                  }
+                }
+              }
+            }
+          },
+          "configuration_webhook": {
+            "{$request.body#/configuration_webhook/url}": {
+              "post": {
+                "summary": "Endgrate will POST to this webhook when the session is configured by the user. This is useful if you want to get the integration provider chosen, any passthrough schemas, or passthrough fields without polling the GET api/session/configuration endpoint.",
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "metadata": {
+                                "type": "object",
+                                "description": "The metadata from ${request.body#/data_webhook/metadata}.",
+                                "example": {
+                                  "user_id": 1
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "$ref": "#/components/schemas/ConfigurationCallbackSchema"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "Process callback"
+                  }
+                }
+              }
+            }
+          },
+          "error_webhook": {
+            "{$request.body.error_webhook/url}": {
+              "post": {
+                "summary": "Endgrate will POST to this webhook whenever an error occurs. This endpoint is useful if you want to get error information without polling the GET api/errors endpoint.",
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "metadata": {
+                                "type": "object",
+                                "description": "The metadata from ${request.body#/error_webhook/metadata}.",
+                                "example": {
+                                  "user_id": 1
+                                }
+                              },
+                              "success": {
+                                "type": "boolean",
+                                "examples": true
+                              }
+                            }
+                          },
+                          {
+                            "$ref": "#/components/schemas/ErrorCallbackSchema"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "Process callback"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultSuccessSchema"
+                },
+                "example": {
+                  "success": true,
+                  "session_id": "6566e85e7cf20dca9cef0c0a"
+                }
+              }
+            }
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/api/push/transfer": {
+      "post": {
+        "tags": [
+          "Transfer"
+        ],
+        "summary": "Trigger Push",
+        "operationId": "post_api_push_transfer",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PushTransferSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransferResponseSchema"
+                },
+                "example": {
+                  "success": true,
+                  "transfer_id": "6566e87b7cf20dca9cef0c0d",
+                  "statistics": "https://endgrate.com/statistics?transfer_id=6566e87b7cf20dca9cef0c0d\""
+                }
+              }
+            }
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/api/session/configuration": {
+      "get": {
+        "summary": "Get Session Configuration",
+        "tags": [
+          "Settings"
+        ],
+        "operationId": "get_api_session_configuration",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "session_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfigurationCallbackSchema"
+                }
+              }
+            }
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/api/session/delete": {
+      "post": {
+        "summary": "Delete Session",
+        "tags": [
+          "Settings"
+        ],
+        "operationId": "get_api_session_delete",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultSuccessSchema"
+                },
+                "example": {
+                  "success": true,
+                  "session_id": "6566e85e7cf20dca9cef0c0a"
+                }
+              }
+            }
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/api/session/initiate": {
+      "post": {
+        "summary": "Initiate (Push + Pull) Session",
+        "tags": [
+          "Session"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "operationId": "post_api_session_initiate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SessionInitiateSchema"
+              },
+              "examples": {
+                "Simple": {
+                  "value": {
+                    "schema": [
+                      {
+                        "endgrate_type": "crm-contact"
+                      }
+                    ]
+                  }
+                },
+                "Enable All UX Screens": {
+                  "value": {
+                    "field_selection": true,
+                    "resource_selection": true,
+                    "schema": [
+                      {
+                        "endgrate_type": "crm-contact"
+                      }
+                    ],
+                    "schema_selection": true
+                  }
+                },
+                "Enable Sync": {
+                  "value": {
+                    "schema": [
+                      {
+                        "endgrate_type": "crm-contact"
+                      }
+                    ],
+                    "sync": true,
+                    "save_session": true
+                  }
+                },
+                "Enable Passthrough": {
+                  "value": {
+                    "field_selection": true,
+                    "resource_selection": true,
+                    "schema": [
+                      {
+                        "endgrate_type": "crm-contact"
+                      }
+                    ],
+                    "passthrough_fields": true,
+                    "passthrough_schemas": true,
+                    "schema_selection": true
+                  }
+                },
+                "Comprehensive": {
+                  "value": {
+                    "completed_webhook": {
+                      "endpoint": "https://httpbin.org/post",
+                      "metadata": {
+                        "user_id": 1
+                      }
+                    },
+                    "configuration_webhook": {
+                      "endpoint": "https://httpbin.org/post",
+                      "metadata": {
+                        "user_id": 1
+                      }
+                    },
+                    "data_webhook": {
+                      "endpoint": "https://httpbin.org/post",
+                      "metadata": {
+                        "user_id": 1
+                      }
+                    },
+                    "error_webhook": {
+                      "endpoint": "https://httpbin.org/post",
+                      "metadata": {
+                        "user_id": 1
+                      }
+                    },
+                    "field_selection": false,
+                    "passthrough_fields": false,
+                    "passthrough_schemas": false,
+                    "sync": false,
+                    "provider": "hubspot",
+                    "redirect_url": "https://www.google.com/",
+                    "resource_selection": false,
+                    "save_session": false,
+                    "schema": [
+                      {
+                        "endgrate_type": "crm-contact"
+                      }
+                    ],
+                    "schema_selection": false,
+                    "statistics": false,
+                    "webhook_concurrency": false
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "callbacks": {
+          "completed_webhook": {
+            "{$request.body#/completed_webhook/url}": {
+              "post": {
+                "summary": "Endgrate will POST to this webhook whenever a transfer is completed. This is useful if you want to display a completion message to your users.",
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/CompletedCallbackSchema"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "Process callback"
+                  }
+                }
+              }
+            }
+          },
+          "configuration_webhook": {
+            "{$request.body#/configuration_webhook/url}": {
+              "post": {
+                "summary": "Endgrate will POST to this webhook when the session is configured by the user. This is useful if you want to get the integration provider chosen, any passthrough schemas, or passthrough fields without polling the GET api/session/configuration endpoint.",
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "metadata": {
+                                "type": "object",
+                                "description": "The metadata from ${request.body#/data_webhook/metadata}.",
+                                "example": {
+                                  "user_id": 1
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "$ref": "#/components/schemas/ConfigurationCallbackSchema"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "Process callback"
+                  }
+                }
+              }
+            }
+          },
+          "data_webhook": {
+            "{$request.body#/data_webhook/url}": {
+              "post": {
+                "summary": "Endgrate will POST to this webhook whenever new data is received. This is useful if you want to get transfer data without polling the GET api/pull/data endpoint.",
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/DataCallbackSchema"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "Process callback"
+                  }
+                }
+              }
+            }
+          },
+          "error_webhook": {
+            "{$request.body.error_webhook/url}": {
+              "post": {
+                "summary": "Endgrate will POST to this webhook whenever an error occurs. This endpoint is useful if you want to get error information without polling the GET api/errors endpoint.",
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "metadata": {
+                                "type": "object",
+                                "description": "The metadata from ${request.body#/error_webhook/metadata}.",
+                                "example": {
+                                  "user_id": 1
+                                }
+                              },
+                              "success": {
+                                "type": "boolean",
+                                "example": true
+                              }
+                            }
+                          },
+                          {
+                            "$ref": "#/components/schemas/ErrorCallbackSchema"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "Process callback"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultSuccessSchema"
+                },
+                "example": {
+                  "success": true,
+                  "session_id": "6566e85e7cf20dca9cef0c0a"
+                }
+              }
+            }
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/api/statistics": {
+      "get": {
+        "summary": "Get Statistics",
+        "tags": [
+          "Metadata"
+        ],
+        "operationId": "get_api_statistics",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "method",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "IMPORT",
+              "enum": [
+                "IMPORT",
+                "EXPORT"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "session_id",
+            "description": "If specified, only statistics for the corresponding session will be returned. Either `session_id` or `transfer_id` must be specified.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "6566e85e7cf20dca9cef0c0a"
+            }
+          },
+          {
+            "in": "query",
+            "name": "transfer_id",
+            "description": "If specified, only statistics for the corresponding transfer will be returned. Either `session_id` or `transfer_id` must be specified.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "examples": "6566e87b7cf20dca9cef0c0d"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "method": {
+                      "type": "string",
+                      "examples": "IMPORT",
+                      "enum": [
+                        "IMPORT",
+                        "EXPORT"
+                      ]
+                    },
+                    "completed": {
+                      "type": "boolean",
+                      "examples": true
+                    },
+                    "initiated": {
+                      "type": "string",
+                      "examples": "2023-12-02T02:15:51.998Z"
+                    },
+                    "statistics": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": {
+                          "batch_size": {
+                            "type": "integer",
+                            "example": 200
+                          },
+                          "records": {
+                            "type": "integer",
+                            "example": 0
+                          },
+                          "batches": {
+                            "type": "integer",
+                            "example": 0
+                          },
+                          "batches_queued": {
+                            "type": "integer",
+                            "example": 0
+                          },
+                          "batches_success": {
+                            "type": "integer",
+                            "example": 0
+                          },
+                          "batches_fail": {
+                            "type": "integer",
+                            "example": 0
+                          },
+                          "records_transferred": {
+                            "type": "integer",
+                            "example": 2
+                          },
+                          "completed": {
+                            "type": "boolean",
+                            "example": true
+                          },
+                          "provider": {
+                            "type": "string",
+                            "example": "hubspot"
+                          },
+                          "integration": {
+                            "type": "string",
+                            "example": "get-contact"
+                          }
+                        }
+                      },
+                      "example": {
+                        "crm-contact": {
+                          "batch_size": 200,
+                          "records": 0,
+                          "batches": 0,
+                          "batches_queued": 0,
+                          "batches_success": 2,
+                          "batches_fail": 0,
+                          "records_transferred": 2,
+                          "completed": true,
+                          "provider": "hubspot",
+                          "integration": "get-contact"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/session": {
+      "get": {
+        "summary": "Session Redirect",
+        "tags": [
+          "Redirect"
+        ],
+        "operationId": "get_session",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "integration_provider_list_id",
+            "description": "If specified, Endgrate will only display integration providers specified in the corresponding list on the integration provider selection page. See {} for more information.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "examples": "644488af883b70366f99a220"
+            }
+          },
+          {
+            "in": "query",
+            "name": "session_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "examples": "6566e85e7cf20dca9cef0c0a"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/session/edit": {
+      "get": {
+        "summary": "Edit Session Redirect",
+        "tags": [
+          "Redirect"
+        ],
+        "operationId": "get_session_edit",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "field_selection",
+            "description": "Whether or not to allow the user to configure field mapping when editing. See https://documentation.endgrate.com/docs/ux-customization#field-selection for more information.",
+            "schema": {
+              "type": "boolean",
+              "examples": false
+            }
+          },
+          {
+            "in": "query",
+            "name": "resource_selection",
+            "description": "Whether or not to allow the user to choose the integrations for a given schema (e.g. choosing \"Get Contacts\" for a contact schema) when editing. See https://documentation.endgrate.com/docs/ux-customization#resource-selection for more information.",
+            
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "examples": false
+            }
+          },
+          {
+            "in": "query",
+            "name": "schema_selection",
+            "description": "Whether or not to allow the user to choose which schemas to push out or pull in when editing. See https://documentation.endgrate.com/docs/ux-customization#resource-selection for more information.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "examples": false
+            }
+          },
+          {
+            "in": "query",
+            "name": "session_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "examples": "6566e85e7cf20dca9cef0c0a"
+            }
+          },
+          {
+            "in": "query",
+            "name": "settings",
+            "description": "Whether or not to allow the user to configure integration-specific settings when editing.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "examples": "false"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/session/reauthenticate": {
+      "get": {
+        "summary": "Reauthenticate Session Redirect",
+        "tags": [
+          "Redirect"
+        ],
+        "operationId": "get_session_reauthenticate",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "session_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "examples": "6566e85e7cf20dca9cef0c0a"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://endgrate.com"
+    }
+  ],
+  "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": false,
+    "samples-enabled": true
+  },
+  "webhooks": {
+    "completed_webhook": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "summary": "Completed Webhook",
+        "description": "Endgrate will POST to this webhook whenever a transfer is completed. This is useful if you want to display a completion message to your users.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompletedCallbackSchema"
+              },
+              "examples": {
+                "Comprehensive": {
+                  "value": {
+                    "success": true,
+                    "transfer_id": "6566e87b7cf20dca9cef0c0d",
+                    "session_id": "6566e85e7cf20dca9cef0c0a",
+                    "metadata": {
+                      "user_id": 1
+                    },
+                    "endgrate": {
+                      "endgrate_type": "crm-contact"
+                    },
+                    "completed": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Acknowledgement that the completion data was received successfully"
+          }
+        }
+      }
+    },
+    "configuration_webhook": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "summary": "Configuration Webhook",
+        "description": "Endgrate will POST to this webhook when the session is configured by the user. This is useful if you want to get the integration provider chosen, any passthrough schemas, or passthrough fields without polling the GET api/session/configuration endpoint.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfigurationCallbackSchema"
+              },
+              "examples": {
+                "Comprehensive": {
+                  "value": {
+                    "success": true,
+                    "session_id": "6566e85e7cf20dca9cef0c0a",
+                    "endgrate": {
+                      "provider": "hubspot",
+                      "provider_info": {
+                        "name": "hubspot",
+                        "display_name": "HubSpot",
+                        "url": "https://www.hubspot.com/",
+                        "image": "https://endgrate.nyc3.cdn.digitaloceanspaces.com/integration/hubspot.png",
+                        "auth_type": "oauth",
+                        "specific": {},
+                        "endgrate_provider_type": "CRM"
+                      }
+                    },
+                    "schemas": {
+                      "contact": {
+                        "integration_info": {
+                          "name": "get-contacts",
+                          "display_name": "Get Contacts",
+                          "method": "IMPORT"
+                        },
+                        "integration": "get-contacts",
+                        "schema": {
+                          "type": "object",
+                          "endgrate_type": "crm-contact",
+                          "properties": {
+                            "email": {
+                              "type": "string",
+                              "format": "email"
+                            },
+                            "first_name": {
+                              "type": "string"
+                            },
+                            "last_name": {
+                              "type": "string"
+                            },
+                            "full_name": {
+                              "type": "string"
+                            },
+                            "company": {
+                              "type": "string"
+                            },
+                            "age": {
+                              "type": "number"
+                            },
+                            "is_employed": {
+                              "type": "boolean"
+                            },
+                            "lifecyclestage": {
+                              "title": "Lifecycle Stage",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "email"
+                          ],
+                          "title": "crm-contact",
+                          "session_method": "IMPORT"
+                        },
+                        "passthrough_fields": {
+                          "properties": {
+                            "lifecyclestage": {
+                              "title": "Lifecycle Stage",
+                              "type": "string"
+                            },
+                            "required": []
+                          }
+                        }
+                      }
+                    },
+                    "passthrough_schemas": {
+                      "custom": {
+                        "integration_info": {
+                          "name": "get-custom-objects",
+                          "display_name": "Get Custom Objects",
+                          "method": "IMPORT"
+                        },
+                        "integration": "get-custom-objects",
+                        "schema": {
+                          "type": "object",
+                          "associations": true,
+                          "endgrate_type": "Custom Object",
+                          "properties": {
+                            "customfield1": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "customfield1"
+                          ],
+                          "title": "custom",
+                          "session_method": "IMPORT"
+                        },
+                        "passthrough_fields": {
+                          "properties": {
+                            "customfield1": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "customfield1"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Acknowledgement that the configuration data was received successfully"
+          }
+        }
+      }
+    },
+    "data_webhook": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "summary": "Data Webhook",
+        "description": "Endgrate will POST to this webhook whenever new data is received. This is useful if you want to get transfer data without polling the GET api/pull/data endpoint.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataCallbackSchema"
+              },
+              "examples": {
+                "Comprehensive": {
+                  "value": {
+                    "success": true,
+                    "transfer_id": "6566e87b7cf20dca9cef0c0d",
+                    "session_id": "6566e85e7cf20dca9cef0c0a",
+                    "metadata": {
+                      "user_id": "1"
+                    },
+                    "endgrate": {
+                      "endgrate_type": "Contact"
+                    },
+                    "completed": true,
+                    "transfer_data": [
+                      {
+                        "id": 68951,
+                        "data": {
+                          "email": "susan@youtube.com",
+                          "first_name": "Susan",
+                          "last_name": "Wojicki",
+                          "full_name": "Susan Wojicki",
+                          "company": "YouTube",
+                          "is_employed": true,
+                          "age": 37,
+                          "lifecyclestage": "lead"
+                        },
+                        "associations": {
+                          "crm-company": [
+                            "93574"
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Acknowledgement that the data was received successfully"
+          }
+        }
+      }
+    },
+    "error_webhook": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "summary": "Error Webhook",
+        "description": "Endgrate will POST to this webhook whenever an error occurs. This endpoint is useful if you want to get error information without polling the GET api/errors endpoint.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorCallbackSchema"
+              },
+              "examples": {
+                "Comprehensive": {
+                  "value": {
+                    "success": true,
+                    "pk": "65c9c40982664224123cebd5",
+                    "transfer_id": "6566e87b7cf20dca9cef0c0d",
+                    "session_id": "6566e85e7cf20dca9cef0c0a",
+                    "timestamp": "2023-08-28T02:04:08.917Z",
+                    "error_resolve_text": "The integration is missing a value for the required field: Email. Please make sure the attribute: .email that maps to this field is populated in your transfer data: {}",
+                    "error_type": "transfer_data",
+                    "resolved": true,
+                    "endgrate": {
+                      "provider_info": {
+                        "name": "hubspot",
+                        "display_name": "HubSpot",
+                        "url": "https://www.hubspot.com/",
+                        "image": "https://endgrate.nyc3.cdn.digitaloceanspaces.com/integration/hubspot.png",
+                        "auth_type": "oauth",
+                        "endgrate_provider_type": "CRM"
+                      },
+                      "integration_info": {
+                        "name": "create-or-update-contacts",
+                        "display_name": "Create or Update Contacts",
+                        "method": "EXPORT",
+                        "endgrate_type": "crm-contact",
+                        "supports_associations": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Acknowledgement that the error information was received successfully"
+          }
+        }
+      }
+    }
+  }
+}
