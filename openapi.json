@@ -912,13 +912,13 @@
           "internal_id": {
             "type": "string",
             "examples": "My ID",
-            "description": "The internal id given by the developer (push transfers only)",
+            "description": "The error's corresponding internal ID if provided by the developer (push transfers only)."
           },
           "data_index": {
             "type": "integer",
             "examples": 0,
-            "description": "The error's index in the tansfer data (push transfers only)",
-          },
+            "description": "The error's corresponding index in the transfer data (push transfers only)."
+          }
         }
       },
       "DataWebhookSchema": {
