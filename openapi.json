@@ -2341,6 +2341,10 @@
                     },
                     "transfer_data": {
                       "$ref": "#/components/schemas/TransferDataSchema"
+                    },
+                    "transfer_data_errors":{
+                      "type": "boolean",
+                      "examples": false
                     }
                   }
                 }
@@ -2521,6 +2525,10 @@
                     },
                     "transfer_data": {
                       "$ref": "#/components/schemas/TransferDataSchema"
+                    },
+                    "transfer_data_errors":{
+                      "type": "boolean",
+                      "examples": false
                     }
                   }
                 }
@@ -3766,7 +3774,8 @@
                           ]
                         }
                       }
-                    ]
+                    ],
+                    "transfer_data_errors":false
                   }
                 }
               }
