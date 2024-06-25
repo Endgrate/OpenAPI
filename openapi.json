@@ -668,6 +668,10 @@
           },
           "transfer_data": {
             "$ref": "#/components/schemas/TransferDataSchema"
+          },
+          "transfer_errors":{
+            "type":"boolean",
+            "example":false
           }
         }
       },
@@ -898,6 +902,18 @@
                 }
               }
             }
+          },
+          "warn":{
+            "type": "array",
+            "description": "A list of developer warnings for the specified request, if applicable.",
+            "items":{
+              "type": "string"
+            }
+          },
+          "transfer_errors":{
+            "type":"boolean",
+            "description":"Whether or not there have been errors on this transfer.",
+            "example":true
           }
         }
       },
@@ -1085,6 +1101,18 @@
           },
           "message": {
             "type": "string"
+          },
+          "warn":{
+            "type": "array",
+            "description": "A list of developer warnings for the specified request, if applicable.",
+            "items":{
+              "type": "string"
+            }
+          },
+          "transfer_errors":{
+            "type":"boolean",
+            "description":"Whether or not there have been errors on this transfer.",
+            "example":true
           }
         },
         "required": [
@@ -2342,9 +2370,10 @@
                     "transfer_data": {
                       "$ref": "#/components/schemas/TransferDataSchema"
                     },
-                    "transfer_data_errors":{
+                    "transfer_errors":{
                       "type": "boolean",
-                      "examples": false
+                      "examples": false,
+                      "description": "Whether or not there have been errors on this transfer."
                     }
                   }
                 }
@@ -2526,9 +2555,10 @@
                     "transfer_data": {
                       "$ref": "#/components/schemas/TransferDataSchema"
                     },
-                    "transfer_data_errors":{
+                    "transfer_errors":{
                       "type": "boolean",
-                      "examples": false
+                      "examples": false,
+                      "description": "Whether or not there have been errors on this transfer."
                     }
                   }
                 }
@@ -3774,8 +3804,7 @@
                           ]
                         }
                       }
-                    ],
-                    "transfer_data_errors":false
+                    ]
                   }
                 }
               }
