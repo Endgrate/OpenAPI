@@ -781,6 +781,16 @@
                 }
               }
             }
+          },
+          "internal_id": {
+            "type": "string",
+            "examples": "My ID",
+            "description": "The error's corresponding internal ID if provided by the developer (push transfers only)."
+          },
+          "data_index": {
+            "type": "integer",
+            "examples": 0,
+            "description": "The error's corresponding index in the transfer data (push transfers only)."
           }
         }
       },
@@ -898,7 +908,17 @@
                 }
               }
             }
-          }
+          },
+          "internal_id": {
+            "type": "string",
+            "examples": "My ID",
+            "description": "The internal id given by the developer (push transfers only)",
+          },
+          "data_index": {
+            "type": "integer",
+            "examples": 0,
+            "description": "The error's index in the tansfer data (push transfers only)",
+          },
         }
       },
       "DataWebhookSchema": {
@@ -3821,6 +3841,8 @@
                     "error_resolve_text": "The integration is missing a value for the required field: Email. Please make sure the attribute: .email that maps to this field is populated in your transfer data: {}",
                     "error_type": "transfer_data",
                     "resolved": true,
+                    "internal_id": "My ID",
+                    "data_index": 0,
                     "endgrate": {
                       "provider_info": {
                         "name": "hubspot",
