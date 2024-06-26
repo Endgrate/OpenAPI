@@ -668,6 +668,10 @@
           },
           "transfer_data": {
             "$ref": "#/components/schemas/TransferDataSchema"
+          },
+          "transfer_errors":{
+            "type":"boolean",
+            "example":false
           }
         }
       },
@@ -909,6 +913,18 @@
               }
             }
           },
+          "warn":{
+            "type": "array",
+            "description": "A list of developer warnings for the specified request, if applicable.",
+            "items":{
+              "type": "string"
+            }
+          },
+          "transfer_errors":{
+            "type":"boolean",
+            "description":"Whether or not there have been errors on this transfer.",
+            "example":true
+          },
           "internal_id": {
             "type": "string",
             "examples": "My ID",
@@ -918,7 +934,7 @@
             "type": "integer",
             "examples": 0,
             "description": "The error's index in the tansfer data (push transfers only)",
-          },
+          }
         }
       },
       "DataWebhookSchema": {
@@ -1105,6 +1121,18 @@
           },
           "message": {
             "type": "string"
+          },
+          "warn":{
+            "type": "array",
+            "description": "A list of developer warnings for the specified request, if applicable.",
+            "items":{
+              "type": "string"
+            }
+          },
+          "transfer_errors":{
+            "type":"boolean",
+            "description":"Whether or not there have been errors on this transfer.",
+            "example":true
           }
         },
         "required": [
@@ -2377,6 +2405,11 @@
                     },
                     "transfer_data": {
                       "$ref": "#/components/schemas/TransferDataSchema"
+                    },
+                    "transfer_errors":{
+                      "type": "boolean",
+                      "examples": false,
+                      "description": "Whether or not there have been errors on this transfer."
                     }
                   }
                 }
@@ -2557,6 +2590,11 @@
                     },
                     "transfer_data": {
                       "$ref": "#/components/schemas/TransferDataSchema"
+                    },
+                    "transfer_errors":{
+                      "type": "boolean",
+                      "examples": false,
+                      "description": "Whether or not there have been errors on this transfer."
                     }
                   }
                 }
