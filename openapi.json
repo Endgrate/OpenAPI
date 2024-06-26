@@ -785,6 +785,16 @@
                 }
               }
             }
+          },
+          "internal_id": {
+            "type": "string",
+            "examples": "My ID",
+            "description": "The error's corresponding internal ID if provided by the developer (push transfers only)."
+          },
+          "data_index": {
+            "type": "integer",
+            "examples": 0,
+            "description": "The error's corresponding index in the transfer data (push transfers only)."
           }
         }
       },
@@ -914,6 +924,16 @@
             "type":"boolean",
             "description":"Whether or not there have been errors on this transfer.",
             "example":true
+          },
+          "internal_id": {
+            "type": "string",
+            "examples": "My ID",
+            "description": "The internal id given by the developer (push transfers only)",
+          },
+          "data_index": {
+            "type": "integer",
+            "examples": 0,
+            "description": "The error's index in the tansfer data (push transfers only)",
           }
         }
       },
@@ -1480,13 +1500,23 @@
             "default": false,
             "example": false
           },
+          "disable_upsert": {
+            "type": "string",
+            "description": "Whether or not to disable automatic upsert and force Endgrate to create a new resource."
+          },
           "transfer_data": {
             "description": "An array of transfer data to be pushed out.",
             "items": {
               "type": "object",
               "properties": {
-                "id": "The unique identifier of the resource, returned by the integration provider. If specified, Endgrate will update the existing resource.",
-                "internal_id": "Your own unique identifier for this resource. If specified, Endgrate will use this identifier to keep track of when to update existing resources.",
+                "id": {
+                  "type": "string",
+                  "description": "The unique identifier of the resource, returned by the integration provider. If specified, Endgrate will update the existing resource."
+                },
+                "internal_id": {
+                  "type": "string",
+                  "description": "Your own unique identifier for this resource. If specified, Endgrate will use this identifier to keep track of when to update existing resources."
+                },
                 "data": {
                   "type": "object",
                   "description": "Transfer data conforming to the specified `endgrate_type` schema.",
@@ -1512,8 +1542,14 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "id": "The unique identifier of the resource, returned by the integration provider. If specified, Endgrate will update the existing resource.",
-                        "internal_id": "Your own unique identifier for this resource. If specified, Endgrate will use this identifier to keep track of when to update existing resources.",
+                        "id": {
+                          "type": "string",
+                          "description": "The unique identifier of the associated resource, returned by the integration provider. If specified, Endgrate will update the existing associated resource."
+                        },
+                        "internal_id": {
+                          "type": "string",
+                          "description": "Your own unique identifier for this associated resource. If specified, Endgrate will use this identifier to keep track of when to update existing associated resources."
+                        },
                         "data": {
                           "type": "object",
                           "description": "Transfer data conforming to the specified `endgrate_type` schema."
@@ -3843,6 +3879,8 @@
                     "error_resolve_text": "The integration is missing a value for the required field: Email. Please make sure the attribute: .email that maps to this field is populated in your transfer data: {}",
                     "error_type": "transfer_data",
                     "resolved": true,
+                    "internal_id": "My ID",
+                    "data_index": 0,
                     "endgrate": {
                       "provider_info": {
                         "name": "hubspot",
