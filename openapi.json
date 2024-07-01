@@ -1189,6 +1189,11 @@
             "type": "string",
             "example": "hubspot"
           },
+          "integration_provider_list_id": {
+            "description": "An integration provider list ID. If specified, the user will only be shown the integrations described in the integration provider list.",
+            "type": "string",
+            "example": "637c9e9a2c9cbae3332b52e5"
+          },
           "redirect_url": {
             "description": "A URL that users will be redirected to after setting up the session. This is useful if you want to redirect your users back to your app.",
             "type": "string",
@@ -1367,6 +1372,11 @@
             "description": "A pre-selected integration provider. If specified, the user will be directly redirected to the specific authentication page.",
             "type": "string",
             "example": "hubspot"
+          },
+          "integration_provider_list_id": {
+            "description": "An integration provider list ID. If specified, the user will only be shown the integrations described in the integration provider list.",
+            "type": "string",
+            "example": "637c9e9a2c9cbae3332b52e5"
           },
           "redirect_url": {
             "description": "A URL that users will be redirected to after setting up the session. This is useful if you want to redirect your users back to your app.",
@@ -1645,6 +1655,11 @@
             "description": "An integration provider. If specified, the user will not be shown the integration provider selection page and instead will be directed to the integration provider authentication page.",
             "type": "string",
             "example": "hubspot"
+          },
+          "integration_provider_list_id": {
+            "description": "An integration provider list ID. If specified, the user will only be shown the integrations described in the integration provider list.",
+            "type": "string",
+            "example": "637c9e9a2c9cbae3332b52e5"
           },
           "redirect_url": {
             "description": "A URL that users will be redirected to after setting up the session. This is useful if you want to redirect your users back to your app.",
