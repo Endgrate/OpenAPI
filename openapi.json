@@ -3574,6 +3574,16 @@
               "type": "boolean",
               "examples": "false"
             }
+          },
+          {
+            "in": "query",
+            "name": "endgrate_type",
+            "description": "Specifies the endgrate type or title of schemas to edit.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "examples": ["crm-contact","Contact"]
+            }
           }
         ],
         "responses": {
