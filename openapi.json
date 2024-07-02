@@ -1270,6 +1270,9 @@
           "associations": {
             "type": "object",
             "description": "An object specifying which `endgrate_type`s to get associated resource data for.",
+            "additionalProperties": {
+              "type": "boolean"
+            },
             "example": {
               "crm-company": true
             }
