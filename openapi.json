@@ -599,7 +599,7 @@
           },
           "session_id": {
             "type": "string",
-            "examples": "6566e85e7cf20dca9cef0c0a"
+            "example": "6566e85e7cf20dca9cef0c0a"
           },
           "metadata": {
             "type": "object",
@@ -722,7 +722,7 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "examples": "hubspot"
+                    "example": "hubspot"
                   },
                   "display_name": {
                     "type": "string",
@@ -788,7 +788,7 @@
           },
           "internal_id": {
             "type": "string",
-            "examples": "My ID",
+            "example": "My ID",
             "description": "The error's corresponding internal ID if provided by the developer (push transfers only)."
           },
           "data_index": {
@@ -927,12 +927,12 @@
           },
           "internal_id": {
             "type": "string",
-            "examples": "My ID",
+            "example": "My ID",
             "description": "The internal id given by the developer (push transfers only)"
           },
           "data_index": {
             "type": "integer",
-            "examples": 0,
+            "example": 0,
             "description": "The error's index in the tansfer data (push transfers only)"
           }
         }
@@ -1246,7 +1246,7 @@
             "description": "Whether or not to allow the user to choose which schemas to pull in. See https://documentation.endgrate.com/docs/ux-customization#resource-selection for more information.",
             "type": "boolean",
             "default": false,
-            "examples": false
+            "example": false
           },
           "statistics": {
             "description": "Whether or not to allow the user to see transfer statistics. See https://documentation.endgrate.com/docs/ux-customization#resource-selection for more information.",
@@ -1692,13 +1692,13 @@
             "description": "Whether or not to allow the user to choose which schemas to pull in and push out. See https://documentation.endgrate.com/docs/ux-customization#resource-selection for more information.",
             "type": "boolean",
             "default": false,
-            "examples": false
+            "example": false
           },
           "statistics": {
             "description": "Whether or not to allow the user to see transfer statistics. See https://documentation.endgrate.com/docs/ux-customization#resource-selection for more information.",
             "type": "boolean",
             "default": false,
-            "examples": false
+            "example": false
           },
           "webhook_concurrency": {
             "description": "Whether or not to execute POST requests to webhooks concurrently.",
@@ -1819,14 +1819,14 @@
                       "properties": {
                         "count": {
                           "type": "integer",
-                          "examples": 1000
+                          "example": 1000
                         },
                         "previous": {
                           "type": "object",
                           "properties": {
                             "offset": {
                               "type": "integer",
-                              "examples": 100
+                              "example": 100
                             }
                           }
                         },
@@ -1835,7 +1835,7 @@
                           "properties": {
                             "offset": {
                               "type": "integer",
-                              "examples": 300
+                              "example": 300
                             }
                           }
                         }
@@ -2391,18 +2391,18 @@
                       "properties": {
                         "count": {
                           "type": "integer",
-                          "examples": 1000
+                          "example": 1000
                         },
                         "previous": {
                           "type": "object",
                           "properties": {
                             "offset": {
                               "type": "integer",
-                              "examples": 100
+                              "example": 100
                             },
                             "link": {
                               "type": "string",
-                              "examples": "https://endgrate.com/api/pull/data?transfer_id=abcabc123123abcabc123123&limit=100&offset=100"
+                              "example": "https://endgrate.com/api/pull/data?transfer_id=abcabc123123abcabc123123&limit=100&offset=100"
                             }
                           }
                         },
@@ -2411,7 +2411,7 @@
                           "properties": {
                             "offset": {
                               "type": "integer",
-                              "examples": 300
+                              "example": 300
                             },
                             "link": {
                               "type": "string",
@@ -2426,7 +2426,7 @@
                     },
                     "transfer_errors":{
                       "type": "boolean",
-                      "examples": false,
+                      "example": false,
                       "description": "Whether or not there have been errors on this transfer."
                     }
                   }
@@ -2576,7 +2576,7 @@
                       "properties": {
                         "count": {
                           "type": "integer",
-                          "examples": 1000
+                          "example": 1000
                         },
                         "previous": {
                           "type": "object",
@@ -2587,7 +2587,7 @@
                             },
                             "link": {
                               "type": "string",
-                              "example": "https://endgrate.com/api/pull/data?transfer_id=abcabc123123abcabc123123&limit=100&offset=100"
+                              "example": "https://endgrate.com/api/push/data?transfer_id=abcabc123123abcabc123123&limit=100&offset=100"
                             }
                           }
                         },
@@ -2600,7 +2600,7 @@
                             },
                             "link": {
                               "type": "string",
-                              "example": "https://endgrate.com/api/pull/data?transfer_id=abcabc123123abcabc123123&limit=100&offset=300"
+                              "example": "https://endgrate.com/api/push/data?transfer_id=abcabc123123abcabc123123&limit=100&offset=300"
                             }
                           }
                         }
@@ -2611,7 +2611,7 @@
                     },
                     "transfer_errors":{
                       "type": "boolean",
-                      "examples": false,
+                      "example": false,
                       "description": "Whether or not there have been errors on this transfer."
                     }
                   }
@@ -2869,7 +2869,7 @@
                               },
                               "success": {
                                 "type": "boolean",
-                                "examples": true
+                                "example": true
                               }
                             }
                           },
@@ -3371,7 +3371,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "examples": "6566e87b7cf20dca9cef0c0d"
+              "example": "6566e87b7cf20dca9cef0c0d"
             }
           }
         ],
@@ -3385,7 +3385,7 @@
                   "properties": {
                     "method": {
                       "type": "string",
-                      "examples": "IMPORT",
+                      "example": "IMPORT",
                       "enum": [
                         "IMPORT",
                         "EXPORT"
@@ -3393,11 +3393,11 @@
                     },
                     "completed": {
                       "type": "boolean",
-                      "examples": true
+                      "example": true
                     },
                     "initiated": {
                       "type": "string",
-                      "examples": "2023-12-02T02:15:51.998Z"
+                      "example": "2023-12-02T02:15:51.998Z"
                     },
                     "statistics": {
                       "type": "object",
@@ -3494,7 +3494,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "examples": "644488af883b70366f99a220"
+              "example": "644488af883b70366f99a220"
             }
           },
           {
@@ -3503,7 +3503,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "examples": "6566e85e7cf20dca9cef0c0a"
+              "example": "6566e85e7cf20dca9cef0c0a"
             }
           }
         ],
@@ -3535,7 +3535,7 @@
             "description": "Whether or not to allow the user to configure field mapping when editing. See https://documentation.endgrate.com/docs/ux-customization#field-selection for more information.",
             "schema": {
               "type": "boolean",
-              "examples": false
+              "example": false
             }
           },
           {
@@ -3546,7 +3546,7 @@
             "required": false,
             "schema": {
               "type": "boolean",
-              "examples": false
+              "example": false
             }
           },
           {
@@ -3556,7 +3556,7 @@
             "required": false,
             "schema": {
               "type": "boolean",
-              "examples": false
+              "example": false
             }
           },
           {
@@ -3565,7 +3565,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "examples": "6566e85e7cf20dca9cef0c0a"
+              "example": "6566e85e7cf20dca9cef0c0a"
             }
           },
           {
@@ -3575,7 +3575,7 @@
             "required": false,
             "schema": {
               "type": "boolean",
-              "examples": "false"
+              "example": "false"
             }
           },
           {
@@ -3617,7 +3617,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "examples": "6566e85e7cf20dca9cef0c0a"
+              "example": "6566e85e7cf20dca9cef0c0a"
             }
           }
         ],
