@@ -1144,6 +1144,16 @@
       "PullInitiateSchema": {
         "additionalProperties": false,
         "properties": {
+          "name": {
+            "description": "A human-readable label for the session that will appear on the Sessions tab of your dashboard.",
+            "type": "string",
+            "example": "My Development Session"
+          },
+          "completed_webhook": {
+            "description": "Endgrate will POST to this webhook whenever a transfer is completed. This is useful if you want to display a completion message to your users.",
+            "$ref": "#/components/schemas/WebhookSchema"
+          },
+
           "configuration_webhook": {
             "description": "Endgrate will POST to this webhook when the session is configured by the user. This is useful if you want to get the integration provider chosen, any passthrough schemas, or passthrough fields without polling the GET api/session/configuration endpoint.",
             "$ref": "#/components/schemas/WebhookSchema"
@@ -1377,6 +1387,15 @@
       "PushInitiateSchema": {
         "additionalProperties": false,
         "properties": {
+          "name": {
+            "description": "A human-readable label for the session that will appear on the Sessions tab of your dashboard.",
+            "type": "string",
+            "example": "My Development Session"
+          },
+          "completed_webhook": {
+            "description": "Endgrate will POST to this webhook whenever a transfer is completed. This is useful if you want to display a completion message to your users.",
+            "$ref": "#/components/schemas/WebhookSchema"
+          },
           "configuration_webhook": {
             "description": "Endgrate will POST to this webhook when the session is configured by the user. This is useful if you want to get the integration provider chosen, any passthrough schemas, or passthrough fields without polling the GET api/session/configuration endpoint.",
             "$ref": "#/components/schemas/WebhookSchema"
@@ -1633,6 +1652,11 @@
       "SessionInitiateSchema": {
         "additionalProperties": false,
         "properties": {
+          "name": {
+            "description": "A human-readable label for the session that will appear on the Sessions tab of your dashboard.",
+            "type": "string",
+            "example": "My Development Session"
+          },
           "category": {
             "description": "An integration category. If specified, all common data model schemas from the category will be added for this session.",
             "type": "string",
