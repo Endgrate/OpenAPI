@@ -13,6 +13,11 @@
         "items": {
           "type": "object",
           "properties": {
+            "transfer_success": {
+              "type": "boolean",
+              "description": "Whether or not the data was successfully pushed.",
+              "example": true
+            },
             "id": {
               "type": "string",
               "description": "The unique identifier for this resource, returned by the integration provider.",
@@ -1553,6 +1558,16 @@
             "type": "string",
             "description": "Whether or not to disable automatic upsert and force Endgrate to create a new resource."
           },
+          "data_webhook": {
+            "description": "Endgrate will POST to this webhook whenever new data is received. This is useful if you want to get transfer data without polling the GET api/pull/data endpoint.",
+            "$ref": "#/components/schemas/DataWebhookSchema",
+            "example": {
+              "endpoint": "https://httpbin.org/post",
+              "metadata": {
+                "user_id": 1
+              }
+            }
+          },
           "completed_webhook": {
             "description": "Endgrate will POST to this webhook whenever a transfer is completed.",
             "$ref": "#/components/schemas/WebhookSchema",
@@ -2129,19 +2144,7 @@
                 },
                 "Comprehensive": {
                   "value": {
-                    "completed_webhook": {
-                      "endpoint": "https://httpbin.org/post",
-                      "metadata": {
-                        "user_id": 1
-                      }
-                    },
                     "configuration_webhook": {
-                      "endpoint": "https://httpbin.org/post",
-                      "metadata": {
-                        "user_id": 1
-                      }
-                    },
-                    "data_webhook": {
                       "endpoint": "https://httpbin.org/post",
                       "metadata": {
                         "user_id": 1
@@ -2961,6 +2964,28 @@
           }
         },
         "callbacks": {
+          "data_webhook": {
+            "{$request.body#/data_webhook/url}": {
+              "post": {
+                "summary": "Endgrate will POST to this webhook whenever new data is received. This is useful if you want to get transfer data without polling the GET api/pull/data endpoint.",
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/DataCallbackSchema"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "Process callback"
+                  }
+                }
+              }
+            }
+          },
           "completed_webhook": {
             "{$request.body#/completed_webhook/url}": {
               "post": {
