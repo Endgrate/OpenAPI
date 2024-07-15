@@ -23,6 +23,11 @@
               "description": "The unique identifier for this resource, returned by the integration provider.",
               "example": "68951"
             },
+            "internal_id": {
+              "type": "string",
+              "example": "My ID",
+              "description": "The error's corresponding internal ID if provided by the developer."
+            },
             "data": {
               "type": "object",
               "description": "Transfer data conforming to the specified `endgrate_type` schema.",
@@ -39,11 +44,13 @@
             },
             "associations": {
               "type": "object",
-              "description": "Associated resources keyed by `endgrate_type`.",
+              "description": "Associated resources keyed by `endgrate_type`. For each resource, transfer_success, id, internal_id, and data fields will always be provided",
               "example": {
                 "Company": [
                   {
+                    "transfer_success": true,
                     "id": "17628450685",
+                    "internal_id": "my ID",
                     "data": {
                       "name": "YouTube"
                     }
