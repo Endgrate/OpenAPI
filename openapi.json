@@ -15,7 +15,7 @@
           "properties": {
             "transfer_success": {
               "type": "boolean",
-              "description": "Whether or not the data was successfully pushed.",
+              "description": "Whether or not this resource was successfully pushed (push transfers only).",
               "example": true
             },
             "id": {
@@ -26,7 +26,7 @@
             "internal_id": {
               "type": "string",
               "example": "My ID",
-              "description": "The error's corresponding internal ID if provided by the developer."
+              "description": "The internal ID for this resource, if provided by the developer (push transfers only)."
             },
             "data": {
               "type": "object",
@@ -44,7 +44,7 @@
             },
             "associations": {
               "type": "object",
-              "description": "Associated resources keyed by `endgrate_type`. For each resource, transfer_success, id, internal_id, and data fields will always be provided",
+              "description": "Associated resources keyed by `endgrate_type`.",
               "example": {
                 "Company": [
                   {
@@ -62,9 +62,19 @@
                 "items": {
                   "type": "object",
                   "properties": {
+                    "transfer_success": {
+                      "type": "boolean",
+                      "description": "Whether or not this resource was successfully pushed (push transfers only).",
+                      "example": true
+                    },
                     "id": {
                       "type": "string",
                       "description": "The unique identifier for this resource, returned by the integration provider."
+                    },
+                    "internal_id": {
+                      "type": "string",
+                      "example": "My ID",
+                      "description": "The internal ID for this resource, if provided by the developer (push transfers only)."
                     },
                     "data": {
                       "type": "object",
@@ -683,7 +693,8 @@
           },
           "transfer_errors":{
             "type":"boolean",
-            "example":false
+            "example":false,
+            "description": "Whether or not there has been errors for the transfer."
           }
         }
       },
@@ -801,12 +812,12 @@
           "internal_id": {
             "type": "string",
             "example": "My ID",
-            "description": "The error's corresponding internal ID if provided by the developer (push transfers only)."
+            "description": "The internal ID of the transfer data that errored, if provided by the developer (push transfers only)."
           },
           "data_index": {
             "type": "integer",
             "examples": 0,
-            "description": "The error's corresponding index in the transfer data (push transfers only)."
+            "description": "The index of the transfer data that errored (push transfers only)."
           }
         }
       },
@@ -940,12 +951,12 @@
           "internal_id": {
             "type": "string",
             "example": "My ID",
-            "description": "The internal id given by the developer (push transfers only)"
+            "description": "The internal ID of the transfer data that errored, if provided by the developer (push transfers only)."
           },
           "data_index": {
             "type": "integer",
             "example": 0,
-            "description": "The error's index in the tansfer data (push transfers only)"
+            "description": "The index of the transfer data that errored (push transfers only)."
           }
         }
       },
@@ -1161,11 +1172,6 @@
             "type": "string",
             "example": "My Development Session"
           },
-          "completed_webhook": {
-            "description": "Endgrate will POST to this webhook whenever a transfer is completed. This is useful if you want to display a completion message to your users.",
-            "$ref": "#/components/schemas/WebhookSchema"
-          },
-
           "configuration_webhook": {
             "description": "Endgrate will POST to this webhook when the session is configured by the user. This is useful if you want to get the integration provider chosen, any passthrough schemas, or passthrough fields without polling the GET api/session/configuration endpoint.",
             "$ref": "#/components/schemas/WebhookSchema"
@@ -1353,7 +1359,7 @@
             "example": false
           },
           "completed_webhook": {
-            "description": "Endgrate will POST to this webhook whenever a transfer is completed.",
+            "description": "Endgrate will POST to this webhook whenever the transfer is completed.",
             "$ref": "#/components/schemas/WebhookSchema",
             "example": {
               "endpoint": "https://httpbin.org/post",
@@ -1404,15 +1410,16 @@
             "type": "string",
             "example": "My Development Session"
           },
-          "completed_webhook": {
-            "description": "Endgrate will POST to this webhook whenever a transfer is completed. This is useful if you want to display a completion message to your users.",
-            "$ref": "#/components/schemas/WebhookSchema"
-          },
           "configuration_webhook": {
             "description": "Endgrate will POST to this webhook when the session is configured by the user. This is useful if you want to get the integration provider chosen, any passthrough schemas, or passthrough fields without polling the GET api/session/configuration endpoint.",
-            "$ref": "#/components/schemas/WebhookSchema"
+            "$ref": "#/components/schemas/WebhookSchema",
+            "example": {
+              "endpoint": "https://httpbin.org/post",
+              "metadata": {
+                "user_id": 1
+              }
+            }
           },
-
           "field_selection": {
             "description": "Whether or not to allow the user to configure field mapping. See https://documentation.endgrate.com/docs/ux-customization#field-selection for more information.",
             "type": "boolean",
@@ -1566,7 +1573,7 @@
             "description": "Whether or not to disable automatic upsert and force Endgrate to create a new resource."
           },
           "data_webhook": {
-            "description": "Endgrate will POST to this webhook whenever new data is received after pushing the transfer data. This is useful if you want to get returned data without polling the GET api/push/data endpoint.",
+            "description": "Endgrate will POST to this webhook whenever returned data is received. This is useful if you want to get returned data without polling the GET api/push/data endpoint.",
             "$ref": "#/components/schemas/DataWebhookSchema",
             "example": {
               "endpoint": "https://httpbin.org/post",
@@ -1576,7 +1583,7 @@
             }
           },
           "completed_webhook": {
-            "description": "Endgrate will POST to this webhook whenever a transfer is completed.",
+            "description": "Endgrate will POST to this webhook whenever the transfer is completed.",
             "$ref": "#/components/schemas/WebhookSchema",
             "example": {
               "endpoint": "https://httpbin.org/post",
@@ -2677,7 +2684,7 @@
           "completed_webhook": {
             "{$request.body#/completed_webhook/url}": {
               "post": {
-                "summary": "Endgrate will POST to this webhook whenever a transfer is completed. This is useful if you want to display a completion message to your users.",
+                "summary": "Endgrate will POST to this webhook whenever the transfer is completed. This is useful if you want to display a completion message to your users.",
                 "requestBody": {
                   "required": true,
                   "content": {
@@ -2974,7 +2981,7 @@
           "data_webhook": {
             "{$request.body#/data_webhook/url}": {
               "post": {
-                "summary": "Endgrate will POST to this webhook whenever new data is received after pushing the transfer data. This is useful if you want to get returned data without polling the GET api/push/data endpoint.",
+                "summary": "Endgrate will POST to this webhook whenever returned data is received. This is useful if you want to get returned data without polling the GET api/push/data endpoint.",
                 "requestBody": {
                   "required": true,
                   "content": {
@@ -2996,7 +3003,7 @@
           "completed_webhook": {
             "{$request.body#/completed_webhook/url}": {
               "post": {
-                "summary": "Endgrate will POST to this webhook whenever a transfer is completed. This is useful if you want to display a completion message to your users.",
+                "summary": "Endgrate will POST to this webhook whenever the transfer is completed. This is useful if you want to display a completion message to your users.",
                 "requestBody": {
                   "required": true,
                   "content": {
@@ -3658,7 +3665,7 @@
           "Webhooks"
         ],
         "summary": "Completed Webhook",
-        "description": "Endgrate will POST to this webhook whenever a transfer is completed. This is useful if you want to display a completion message to your users.",
+        "description": "Endgrate will POST to this webhook whenever the transfer is completed. This is useful if you want to display a completion message to your users.",
         "requestBody": {
           "required": true,
           "content": {
@@ -3827,13 +3834,13 @@
         }
       }
     },
-    "data_webhook": {
+    "pull_data_webhook": {
       "post": {
         "tags": [
           "Webhooks"
         ],
-        "summary": "Data Webhook",
-        "description": "Endgrate will POST to this webhook whenever new data is received. This is useful if you want to get transfer data without polling the GET api/pull/data endpoint.",
+        "summary": "Pull Data Webhook",
+        "description": "Endgrate will POST to this webhook whenever new data is received for pull transfers. This is useful if you want to get transfer data without polling the GET api/pull/data endpoint.",
         "requestBody": {
           "required": true,
           "content": {
@@ -3856,7 +3863,7 @@
                     "completed": true,
                     "transfer_data": [
                       {
-                        "id": 68951,
+                        "id": "68951",
                         "data": {
                           "email": "susan@youtube.com",
                           "first_name": "Susan",
@@ -3869,7 +3876,107 @@
                         },
                         "associations": {
                           "crm-company": [
-                            "93574"
+                            {
+                              "id": "93574",
+                              "data": {
+                                "name": "YouTube"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Acknowledgement that the data was received successfully"
+          }
+        }
+      }
+    },
+    "push_data_webhook": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "summary": "Push Data Webhook",
+        "description": "Endgrate will POST to this webhook whenever returned data is received for push transfers. This is useful if you want to get returned data without polling the GET api/push/data endpoint.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataCallbackSchema"
+              },
+              "examples": {
+                "Comprehensive": {
+                  "value": {
+                    "success": true,
+                    "transfer_id": "6566e87b7cf20dca9cef0c0d",
+                    "session_id": "6566e85e7cf20dca9cef0c0a",
+                    "metadata": {
+                      "user_id": "1"
+                    },
+                    "endgrate": {
+                      "endgrate_type": "Contact"
+                    },
+                    "completed": true,
+                    "transfer_data": [
+                      {
+                        "transfer_success": true,
+                        "id": "68951",
+                        "internal_id": "1",
+                        "data": {
+                          "email": "susan@youtube.com",
+                          "first_name": "Susan",
+                          "last_name": "Wojicki",
+                          "full_name": "Susan Wojicki",
+                          "company": "YouTube",
+                          "is_employed": true,
+                          "age": 37,
+                          "lifecyclestage": "lead"
+                        },
+                        "associations": {
+                          "crm-company": [
+                            {
+                              "transfer_success": true,
+                              "id": "93574",
+                              "internal_id": "5",
+                              "data": {
+                                "name": "YouTube"
+                              }
+                            },
+                            {
+                              "transfer_success": false,
+                              "id": null,
+                              "internal_id": "7",
+                              "data": {
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "transfer_success": false,
+                        "id": null,
+                        "internal_id": "2",
+                        "data": {
+                        },
+                        "associations": {
+                          "crm-company": [
+                            {
+                              "transfer_success": true,
+                              "id": "93574",
+                              "internal_id": "5",
+                              "data": {
+                                "name": "YouTube"
+                              }
+                            }
                           ]
                         }
                       }
