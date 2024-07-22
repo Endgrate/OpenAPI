@@ -106,6 +106,7 @@
           },
           "metadata": {
             "type": "object",
+            "additionalProperties": true,
             "description": "The metadata from ${request.body#/completed_webhook/metadata}.",
             "example": {
               "user_id": 1
@@ -219,7 +220,8 @@
                     ]
                   },
                   "specific": {
-                    "type": "object"
+                    "type": "object",
+                    "additionalProperties": true
                   },
                   "endgrate_provider_type": {
                     "type": "string",
@@ -431,6 +433,7 @@
                     },
                     "properties": {
                       "type": "object",
+                      "additionalProperties": true,
                       "example": {
                         "email": {
                           "type": "string",
@@ -472,6 +475,7 @@
                   "properties": {
                     "properties": {
                       "type": "object",
+                      "additionalProperties": true,
                       "example": {
                         "lifecyclestage": {
                           "title": "Lifecycle Stage",
@@ -627,6 +631,7 @@
           },
           "metadata": {
             "type": "object",
+            "additionalProperties": true,
             "description": "The metadata from ${request.body#/data_webhook/metadata}.",
             "example": {
               "user_id": 1
@@ -771,7 +776,8 @@
                     ]
                   },
                   "specific": {
-                    "type": "object"
+                    "type": "object",
+                    "additionalProperties": true
                   },
                   "endgrate_provider_type": {
                     "type": "string",
@@ -898,7 +904,8 @@
                     ]
                   },
                   "specific": {
-                    "type": "object"
+                    "type": "object",
+                    "additionalProperties": true
                   },
                   "endgrate_provider_type": {
                     "type": "string",
@@ -976,6 +983,7 @@
           },
           "metadata": {
             "type": "object",
+            "additionalProperties": true,
             "description": "Any information to be passed back in the webhook call.",
             "example": {
               "user_id": 1
@@ -1067,6 +1075,7 @@
           },
           "properties": {
             "type": "object",
+            "additionalProperties": true,
             "example": {
               "email": {
                 "type": "string",
@@ -1142,7 +1151,8 @@
         "additionalProperties": false,
         "properties": {
           "errors": {
-            "type": "object"
+            "type": "object",
+            "additionalProperties": true
           },
           "message": {
             "type": "string"
@@ -1345,6 +1355,7 @@
           },
           "params": {
             "type": "object",
+            "additionalProperties": true,
             "description": "Optionally, filter by certain properties in your schema by specifying them here.",
             "example": {
               "first_name": "Bob"
@@ -1808,6 +1819,7 @@
           },
           "metadata": {
             "type": "object",
+            "additionalProperties": true,
             "description": "Any information to be passed back in the webhook call.",
             "example": {
               "user_id": 1
@@ -2035,7 +2047,8 @@
                                 ]
                               },
                               "specific": {
-                                "type": "object"
+                                "type": "object",
+                                "additionalProperties": true
                               },
                               "endgrate_provider_type": {
                                 "type": "string",
