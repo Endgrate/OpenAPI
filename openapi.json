@@ -21,6 +21,7 @@
             "data": {
               "type": "object",
               "description": "Transfer data conforming to the specified `endgrate_type` schema.",
+              "additionalProperties": true,
               "example": {
                 "email": "susan@youtube.com",
                 "first_name": "Susan",
@@ -56,6 +57,7 @@
                     },
                     "data": {
                       "type": "object",
+                      "additionalProperties": true,
                       "description": "Transfer data conforming to the associated `endgrate_type` schema."
                     }
                   }
@@ -1594,6 +1596,7 @@
                 },
                 "data": {
                   "type": "object",
+                  "additionalProperties": true,
                   "description": "Transfer data conforming to the specified `endgrate_type` schema.",
                   "example": {
                       "first_name": "Bob",
@@ -1627,6 +1630,7 @@
                         },
                         "data": {
                           "type": "object",
+                          "additionalProperties": true,
                           "description": "Transfer data conforming to the specified `endgrate_type` schema."
                         }
                       }
