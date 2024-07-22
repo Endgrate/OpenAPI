@@ -573,7 +573,8 @@
                       "example": "Custom Object"
                     },
                     "properties": {
-                      "type": "object"
+                      "type": "object",
+                      "additionalProperties": true
                     },
                     "title": {
                       "type": "string",
@@ -591,6 +592,7 @@
                   "properties": {
                     "properties": {
                       "type": "object",
+                      "additionalProperties": true,
                       "example": {
                         "customfield1": {
                           "title": "Custom Field 1",
