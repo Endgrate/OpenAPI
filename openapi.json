@@ -7,6 +7,66 @@
       }
     },
     "schemas": {
+      "PullTransferDataSchema": {
+        "type": "array",
+        "description": "Returned transfer data.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "The unique identifier for this resource, returned by the integration provider.",
+              "example": "68951"
+            },
+            "data": {
+              "type": "object",
+              "description": "Transfer data conforming to the specified `endgrate_type` schema.",
+              "additionalProperties": true,
+              "example": {
+                "email": "susan@youtube.com",
+                "first_name": "Susan",
+                "last_name": "Wojicki",
+                "full_name": "Susan Wojicki",
+                "company": "YouTube",
+                "is_employed": true,
+                "age": 37,
+                "lifecyclestage": "lead"
+              }
+            },
+            "associations": {
+              "type": "object",
+              "description": "Associated resources keyed by `endgrate_type`.",
+              "example": {
+                "Company": [
+                  {
+                    "id": "17628450685",
+                    "data": {
+                      "name": "YouTube"
+                    }
+                  }
+                ]
+              },
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "The unique identifier for this resource, returned by the integration provider."
+                    },
+                    "data": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "description": "Transfer data conforming to the associated `endgrate_type` schema."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "TransferDataSchema": {
         "type": "array",
         "description": "Returned transfer data.",
@@ -707,6 +767,97 @@
           }
         }
       },
+      "PullDataCallbackSchema": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "transfer_id": {
+            "type": "string",
+            "example": "6566e87b7cf20dca9cef0c0d"
+          },
+          "session_id": {
+            "type": "string",
+            "example": "6566e85e7cf20dca9cef0c0a"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "The metadata from ${request.body#/data_webhook/metadata}.",
+            "example": {
+              "user_id": 1
+            }
+          },
+          "endgrate": {
+            "type": "object",
+            "properties": {
+              "endgrate_type": {
+                "type": "string",
+                "description": "A valid `endgrate_type` for the session.",
+                "examples": [
+                  "crm-contact",
+                  "accounting-customer",
+                  "accounting-vendor",
+                  "accounting-item",
+                  "accounting-purchase_order",
+                  "accounting-sales_order",
+                  "analytics-profile",
+                  "analytics-note",
+                  "analytics-page_analytics",
+                  "analytics-page_parameters",
+                  "analytics-account_analytics",
+                  "analytics-user",
+                  "ats-candidate",
+                  "calendar-event",
+                  "communication-meeting",
+                  "communication-message_history",
+                  "communication-user",
+                  "crm-activity",
+                  "crm-company",
+                  "crm-lead",
+                  "crm-opportunity",
+                  "crm-task",
+                  "crm-user",
+                  "database-user",
+                  "ecommerce-customer",
+                  "ecommerce-order",
+                  "ecommerce-product",
+                  "forms-lead",
+                  "forms-question",
+                  "helpdesk-company",
+                  "helpdesk-contact",
+                  "helpdesk-ticket",
+                  "helpdesk-user",
+                  "helpdesk-message",
+                  "marketing-contact",
+                  "marketing-user",
+                  "property_management-device",
+                  "property_management-pin",
+                  "prospecting-contact",
+                  "prospecting-company",
+                  "workspace-task",
+                  "workspace-user"
+                ]
+              }
+            }
+          },
+          "completed": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether or not the transfer has completed."
+          },
+          "transfer_data": {
+            "$ref": "#/components/schemas/PullTransferDataSchema"
+          },
+          "transfer_errors":{
+            "type":"boolean",
+            "example":false,
+            "description": "Whether or not there has been errors for the transfer."
+          }
+        }
+      },
       "ErrorListSchema": {
         "type": "object",
         "properties": {
@@ -989,6 +1140,13 @@
             "description": "Any information to be passed back in the webhook call.",
             "example": {
               "user_id": 1
+            }
+          },
+          "headers": {
+            "type": "object",
+            "description": "Any headers to be used when making the webhook call.",
+            "example": {
+              "authorization": "Bearer 1234"
             }
           }
         },
@@ -1826,6 +1984,13 @@
             "example": {
               "user_id": 1
             }
+          },
+          "headers": {
+            "type": "object",
+            "description": "Any headers to be used when making the webhook call.",
+            "example": {
+              "authorization": "Bearer 1234"
+            }
           }
         },
         "required": [
@@ -2427,7 +2592,7 @@
                       }
                     },
                     "transfer_data": {
-                      "$ref": "#/components/schemas/TransferDataSchema"
+                      "$ref": "#/components/schemas/PullTransferDataSchema"
                     },
                     "transfer_errors":{
                       "type": "boolean",
@@ -2731,7 +2896,7 @@
                   "content": {
                     "application/json": {
                       "schema": {
-                        "$ref": "#/components/schemas/DataCallbackSchema"
+                        "$ref": "#/components/schemas/PullDataCallbackSchema"
                       }
                     }
                   }
