@@ -1144,9 +1144,12 @@
           },
           "headers": {
             "type": "object",
+            "additionalProperties": {
+              "type:": "string"
+            },
             "description": "Any headers to be used when making the webhook call.",
             "example": {
-              "authorization": "Bearer 1234"
+              "Authorization": "Bearer 1234"
             }
           }
         },
@@ -1538,6 +1541,9 @@
               "endpoint": "https://httpbin.org/post",
               "metadata": {
                 "user_id": 1
+              },
+              "headers": {
+                "Authorization": "Bearer 1234"
               }
             }
           },
@@ -1548,6 +1554,9 @@
               "endpoint": "https://httpbin.org/post",
               "metadata": {
                 "user_id": 1
+              },
+              "headers": {
+                "Authorization": "Bearer 1234"
               }
             }
           },
@@ -1558,6 +1567,9 @@
               "endpoint": "https://httpbin.org/post",
               "metadata": {
                 "user_id": 1
+              },
+              "headers": {
+                "Authorization": "Bearer 1234"
               }
             }
           },
@@ -1590,6 +1602,9 @@
               "endpoint": "https://httpbin.org/post",
               "metadata": {
                 "user_id": 1
+              },
+              "headers": {
+                "Authorization": "Bearer 1234"
               }
             }
           },
@@ -1752,6 +1767,9 @@
               "endpoint": "https://httpbin.org/post",
               "metadata": {
                 "user_id": 1
+              },
+              "headers": {
+                "Authorization": "Bearer 1234"
               }
             }
           },
@@ -1762,6 +1780,9 @@
               "endpoint": "https://httpbin.org/post",
               "metadata": {
                 "user_id": 1
+              },
+              "headers": {
+                "Authorization": "Bearer 1234"
               }
             }
           },
@@ -1772,6 +1793,9 @@
               "endpoint": "https://httpbin.org/post",
               "metadata": {
                 "user_id": 1
+              },
+              "headers": {
+                "Authorization": "Bearer 1234"
               }
             }
           },
@@ -1987,9 +2011,12 @@
           },
           "headers": {
             "type": "object",
+            "additionalProperties": {
+              "type:": "string"
+            },
             "description": "Any headers to be used when making the webhook call.",
             "example": {
-              "authorization": "Bearer 1234"
+              "Authorization": "Bearer 1234"
             }
           }
         },
@@ -2346,12 +2373,9 @@
                       "endpoint": "https://httpbin.org/post",
                       "metadata": {
                         "user_id": 1
-                      }
-                    },
-                    "error_webhook": {
-                      "endpoint": "https://httpbin.org/post",
-                      "metadata": {
-                        "user_id": 1
+                      },
+                      "headers": {
+                        "Authorization": "Bearer 1234"
                       }
                     },
                     "field_selection": false,
@@ -3006,22 +3030,13 @@
                 },
                 "Comprehensive": {
                   "value": {
-                    "completed_webhook": {
-                      "endpoint": "https://httpbin.org/post",
-                      "metadata": {
-                        "user_id": 1
-                      }
-                    },
                     "configuration_webhook": {
                       "endpoint": "https://httpbin.org/post",
                       "metadata": {
                         "user_id": 1
-                      }
-                    },
-                    "error_webhook": {
-                      "endpoint": "https://httpbin.org/post",
-                      "metadata": {
-                        "user_id": 1
+                      },
+                      "headers": {
+                        "Authorization": "Bearer 1234"
                       }
                     },
                     "field_selection": false,
@@ -3414,28 +3429,13 @@
                 },
                 "Comprehensive": {
                   "value": {
-                    "completed_webhook": {
-                      "endpoint": "https://httpbin.org/post",
-                      "metadata": {
-                        "user_id": 1
-                      }
-                    },
                     "configuration_webhook": {
                       "endpoint": "https://httpbin.org/post",
                       "metadata": {
                         "user_id": 1
-                      }
-                    },
-                    "data_webhook": {
-                      "endpoint": "https://httpbin.org/post",
-                      "metadata": {
-                        "user_id": 1
-                      }
-                    },
-                    "error_webhook": {
-                      "endpoint": "https://httpbin.org/post",
-                      "metadata": {
-                        "user_id": 1
+                      },
+                      "headers": {
+                        "Authorization": "Bearer 1234"
                       }
                     },
                     "field_selection": false,
