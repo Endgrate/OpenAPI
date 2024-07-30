@@ -2369,6 +2369,7 @@
                 },
                 "Comprehensive": {
                   "value": {
+                    "name": "My Development Session",
                     "configuration_webhook": {
                       "endpoint": "https://httpbin.org/post",
                       "metadata": {
@@ -3030,6 +3031,7 @@
                 },
                 "Comprehensive": {
                   "value": {
+                    "name": "My Development Session",
                     "configuration_webhook": {
                       "endpoint": "https://httpbin.org/post",
                       "metadata": {
@@ -3429,6 +3431,7 @@
                 },
                 "Comprehensive": {
                   "value": {
+                    "name": "My Development Session",
                     "configuration_webhook": {
                       "endpoint": "https://httpbin.org/post",
                       "metadata": {
