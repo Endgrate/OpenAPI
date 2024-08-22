@@ -2247,6 +2247,10 @@
                               "endgrate_provider_type": {
                                 "type": "string",
                                 "example": "CRM"
+                              },
+                              "supports_field_selection": {
+                                "type": "boolean",
+                                "example": true
                               }
                             }
                           },
