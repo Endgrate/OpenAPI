@@ -1757,7 +1757,9 @@
             "example": false
           },
           "disable_upsert": {
-            "type": "string",
+            "type": "boolean",
+            "default": false,
+            "example": false,
             "description": "Whether or not to disable automatic upsert and force Endgrate to create a new resource."
           },
           "data_webhook": {
