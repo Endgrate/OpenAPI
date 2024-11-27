@@ -1805,6 +1805,12 @@
             "default": false,
             "example": false
           },
+          "sample_data": {
+            "description": "Whether or not the data is marked as sample data only to be shown as an example during field selection.",
+            "type": "boolean",
+            "default": false,
+            "example": false
+          },
           "transfer_data": {
             "description": "An array of transfer data to be pushed out.",
             "items": {
