@@ -1994,6 +1994,20 @@
             "type": "boolean",
             "default": false,
             "example": false
+          },
+          "default_upsert_setting": {
+            "description": "Setting this field changes the default upsert setting shown to the end user on field mapping.",
+            "type": "string",
+            "examples": [
+              "OVERWRITE",
+              "DO_NOT_UPDATE",
+              "SET_IF_NOT_SET"
+            ],
+            "enum": [
+              "OVERWRITE",
+              "DO_NOT_UPDATE",
+              "SET_IF_NOT_SET"
+            ]
           }
         },
         "title": "SessionInitiateSchema",
