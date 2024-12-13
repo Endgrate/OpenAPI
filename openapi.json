@@ -1996,7 +1996,7 @@
             "example": false
           },
           "default_upsert_setting": {
-            "description": "Setting this field changes the default upsert setting shown to the end user on field mapping.",
+            "description": "Setting this field changes the default upsert setting shown to the end user on the field mapping page. If set to OVERWRITE, any previously existing data will be overwritten for that field. If set to DO_NOT_UPDATE, previously existing data will be preserved. If set to SET_IF_NOT_SET, the field will only be updated if the field has no existing data.",
             "type": "string",
             "examples": [
               "OVERWRITE",
