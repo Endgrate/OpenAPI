@@ -1351,6 +1351,20 @@
             "description": "Endgrate will POST to this webhook when the session is configured by the user. This is useful if you want to get the integration provider chosen, any passthrough schemas, or passthrough fields without polling the GET api/session/configuration endpoint.",
             "$ref": "#/components/schemas/WebhookSchema"
           },
+          "default_upsert_setting": {
+            "description": "Setting this field changes the default upsert setting shown to the end user on the field mapping page. If set to OVERWRITE, any previously existing data will be overwritten for that field. If set to DO_NOT_UPDATE, previously existing data will be preserved. If set to SET_IF_NOT_SET, the field will only be updated if the field has no existing data.",
+            "type": "string",
+            "examples": [
+              "OVERWRITE",
+              "DO_NOT_UPDATE",
+              "SET_IF_NOT_SET"
+            ],
+            "enum": [
+              "OVERWRITE",
+              "DO_NOT_UPDATE",
+              "SET_IF_NOT_SET"
+            ]
+          },
           "field_selection": {
             "description": "Whether or not to allow the user to configure field mapping. See https://documentation.endgrate.com/docs/ux-customization#field-selection for more information.",
             "type": "boolean",
@@ -1607,6 +1621,20 @@
                 "Authorization": "Bearer 1234"
               }
             }
+          },
+          "default_upsert_setting": {
+            "description": "Setting this field changes the default upsert setting shown to the end user on the field mapping page. If set to OVERWRITE, any previously existing data will be overwritten for that field. If set to DO_NOT_UPDATE, previously existing data will be preserved. If set to SET_IF_NOT_SET, the field will only be updated if the field has no existing data.",
+            "type": "string",
+            "examples": [
+              "OVERWRITE",
+              "DO_NOT_UPDATE",
+              "SET_IF_NOT_SET"
+            ],
+            "enum": [
+              "OVERWRITE",
+              "DO_NOT_UPDATE",
+              "SET_IF_NOT_SET"
+            ]
           },
           "field_selection": {
             "description": "Whether or not to allow the user to configure field mapping. See https://documentation.endgrate.com/docs/ux-customization#field-selection for more information.",
@@ -1919,6 +1947,20 @@
             "description": "Endgrate will POST to this webhook when the session is configured by the user.",
             "$ref": "#/components/schemas/WebhookSchema"
           },
+          "default_upsert_setting": {
+            "description": "Setting this field changes the default upsert setting shown to the end user on the field mapping page. If set to OVERWRITE, any previously existing data will be overwritten for that field. If set to DO_NOT_UPDATE, previously existing data will be preserved. If set to SET_IF_NOT_SET, the field will only be updated if the field has no existing data.",
+            "type": "string",
+            "examples": [
+              "OVERWRITE",
+              "DO_NOT_UPDATE",
+              "SET_IF_NOT_SET"
+            ],
+            "enum": [
+              "OVERWRITE",
+              "DO_NOT_UPDATE",
+              "SET_IF_NOT_SET"
+            ]
+          },
           "field_selection": {
             "description": "Whether or not to allow the user to configure field mapping. See https://documentation.endgrate.com/docs/ux-customization#field-selection for more information.",
             "type": "boolean",
@@ -1994,20 +2036,6 @@
             "type": "boolean",
             "default": false,
             "example": false
-          },
-          "default_upsert_setting": {
-            "description": "Setting this field changes the default upsert setting shown to the end user on the field mapping page. If set to OVERWRITE, any previously existing data will be overwritten for that field. If set to DO_NOT_UPDATE, previously existing data will be preserved. If set to SET_IF_NOT_SET, the field will only be updated if the field has no existing data.",
-            "type": "string",
-            "examples": [
-              "OVERWRITE",
-              "DO_NOT_UPDATE",
-              "SET_IF_NOT_SET"
-            ],
-            "enum": [
-              "OVERWRITE",
-              "DO_NOT_UPDATE",
-              "SET_IF_NOT_SET"
-            ]
           }
         },
         "title": "SessionInitiateSchema",
