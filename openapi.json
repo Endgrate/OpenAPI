@@ -78,6 +78,11 @@
               "description": "Whether or not this resource was successfully pushed (push transfers only).",
               "example": true
             },
+            "error_log": {
+              "type": "string",
+              "description": "A developer-readable error log for this specific resource, if applicable (push transfers only).",
+              "example": "The upstream integration runner returned the following error: ..."
+            },
             "id": {
               "type": "string",
               "description": "The unique identifier for this resource, returned by the integration provider.",
@@ -110,6 +115,7 @@
                 "Company": [
                   {
                     "transfer_success": true,
+                    "error_log": null,
                     "id": "17628450685",
                     "internal_id": "my ID",
                     "data": {
@@ -127,6 +133,11 @@
                       "type": "boolean",
                       "description": "Whether or not this resource was successfully pushed (push transfers only).",
                       "example": true
+                    },
+                    "error_log": {
+                      "type": "string",
+                      "description": "A developer-readable error log for this specific resource, if applicable (push transfers only).",
+                      "example": "The upstream integration runner returned the following error: ..."
                     },
                     "id": {
                       "type": "string",
@@ -4154,6 +4165,7 @@
                     "transfer_data": [
                       {
                         "transfer_success": true,
+                        "error_log": null,
                         "id": "68951",
                         "internal_id": "1",
                         "data": {
@@ -4170,6 +4182,7 @@
                           "crm-company": [
                             {
                               "transfer_success": true,
+                              "error_log": null,
                               "id": "93574",
                               "internal_id": "5",
                               "data": {
@@ -4178,6 +4191,7 @@
                             },
                             {
                               "transfer_success": false,
+                              "error_log": "The upstream integration runner returned the following error: ...",
                               "id": null,
                               "internal_id": "7",
                               "data": {
@@ -4188,6 +4202,7 @@
                       },
                       {
                         "transfer_success": false,
+                        "error_log": "The upstream integration runner returned the following error: ...",
                         "id": null,
                         "internal_id": "2",
                         "data": {
@@ -4196,6 +4211,7 @@
                           "crm-company": [
                             {
                               "transfer_success": true,
+                              "error_log": null,
                               "id": "93574",
                               "internal_id": "5",
                               "data": {
