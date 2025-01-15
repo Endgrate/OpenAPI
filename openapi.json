@@ -108,6 +108,21 @@
                 "lifecyclestage": "lead"
               }
             },
+            "original_data": {
+              "type": "object",
+              "additionalProperties": true,
+              "description": "The original data provided by the developer (push transfers only).",
+              "example": {
+                "email": "susan@youtube.com",
+                "first_name": "Susan",
+                "last_name": "Wojicki",
+                "full_name": "Susan Wojicki",
+                "company": "YouTube",
+                "is_employed": true,
+                "age": 37,
+                "lifecyclestage": "lead"
+              }
+            },
             "associations": {
               "type": "object",
               "description": "Associated resources keyed by `endgrate_type`.",
@@ -152,6 +167,11 @@
                       "type": "object",
                       "additionalProperties": true,
                       "description": "Transfer data conforming to the associated `endgrate_type` schema."
+                    },
+                    "original_data": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "description": "The original data provided by the developer (push transfers only)."
                     }
                   }
                 }
@@ -4116,6 +4136,9 @@
                               "id": "93574",
                               "data": {
                                 "name": "YouTube"
+                              },
+                              "original_data": {
+                                "name": "YouTube"
                               }
                             }
                           ]
@@ -4187,6 +4210,9 @@
                               "internal_id": "5",
                               "data": {
                                 "name": "YouTube"
+                              },
+                              "original_data": {
+                                "name": "YouTube"
                               }
                             },
                             {
@@ -4195,6 +4221,9 @@
                               "id": null,
                               "internal_id": "7",
                               "data": {
+                              },
+                              "original_data": {
+                                "company_url": "invalidformat"
                               }
                             }
                           ]
@@ -4207,6 +4236,9 @@
                         "internal_id": "2",
                         "data": {
                         },
+                        "original_data": {
+                          "email": "invalidformat"
+                        },
                         "associations": {
                           "crm-company": [
                             {
@@ -4215,6 +4247,9 @@
                               "id": "93574",
                               "internal_id": "5",
                               "data": {
+                                "name": "YouTube"
+                              },
+                              "original_data": {
                                 "name": "YouTube"
                               }
                             }
