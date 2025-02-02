@@ -791,9 +791,9 @@
           "transfer_data": {
             "$ref": "#/components/schemas/TransferDataSchema"
           },
-          "transfer_errors":{
-            "type":"boolean",
-            "example":false,
+          "transfer_errors": {
+            "type": "boolean",
+            "example": false,
             "description": "Whether or not there has been errors for the transfer."
           }
         }
@@ -882,9 +882,9 @@
           "transfer_data": {
             "$ref": "#/components/schemas/PullTransferDataSchema"
           },
-          "transfer_errors":{
-            "type":"boolean",
-            "example":false,
+          "transfer_errors": {
+            "type": "boolean",
+            "example": false,
             "description": "Whether or not there has been errors for the transfer."
           }
         }
@@ -1129,17 +1129,17 @@
               }
             }
           },
-          "warn":{
+          "warn": {
             "type": "array",
             "description": "A list of developer warnings for the specified request, if applicable.",
-            "items":{
+            "items": {
               "type": "string"
             }
           },
-          "transfer_errors":{
-            "type":"boolean",
-            "description":"Whether or not there have been errors on this transfer.",
-            "example":true
+          "transfer_errors": {
+            "type": "boolean",
+            "description": "Whether or not there have been errors on this transfer.",
+            "example": true
           },
           "internal_id": {
             "type": "string",
@@ -1351,17 +1351,17 @@
           "message": {
             "type": "string"
           },
-          "warn":{
+          "warn": {
             "type": "array",
             "description": "A list of developer warnings for the specified request, if applicable.",
-            "items":{
+            "items": {
               "type": "string"
             }
           },
-          "transfer_errors":{
-            "type":"boolean",
-            "description":"Whether or not there have been errors on this transfer.",
-            "example":true
+          "transfer_errors": {
+            "type": "boolean",
+            "description": "Whether or not there have been errors on this transfer.",
+            "example": true
           }
         },
         "required": [
@@ -1685,7 +1685,6 @@
             "type": "boolean",
             "default": false,
             "example": false
-
           },
           "category": {
             "description": "An integration category. If specified, all common data model schemas from the category will be added for this session.",
@@ -1793,7 +1792,7 @@
           },
           "session_id": {
             "type": "string",
-            "example":"6566e85e7cf20dca9cef0c0a"
+            "example": "6566e85e7cf20dca9cef0c0a"
           },
           "synchronous": {
             "description": "Whether or not to make this API request synchronous. If true, If true, Endgrate will poll the status of the transfer internally, and return only when the transfer is completed, with a 5 minute maximum polling time.",
@@ -1874,16 +1873,16 @@
                   "additionalProperties": true,
                   "description": "Transfer data conforming to the specified `endgrate_type` schema.",
                   "example": {
-                      "first_name": "Bob",
-                      "last_name": "Smith"
-                    }
+                    "first_name": "Bob",
+                    "last_name": "Smith"
+                  }
                 },
                 "associations": {
                   "example": {
                     "crm-company": [
                       {
                         "data": {
-                            "name": "YouTube"
+                          "name": "YouTube"
                         }
                       }
                     ]
@@ -2064,7 +2063,6 @@
           "endpoint": {
             "type": "string",
             "example": "https://httpbin.org/post"
-
           },
           "metadata": {
             "type": "object",
@@ -2159,6 +2157,16 @@
             "example": "6566e87b7cf20dca9cef0c0d",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "error_type",
+            "description": "Specify the type of error to retrieve. Can be any of 'internal', 'transfer_data', 'schema', 'upstream', 'authentication', 'provider'.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["internal", "transfer_data", "schema", "upstream", "authentication", "provider"]
             }
           }
         ],
@@ -2688,7 +2696,7 @@
                     "transfer_data": {
                       "$ref": "#/components/schemas/PullTransferDataSchema"
                     },
-                    "transfer_errors":{
+                    "transfer_errors": {
                       "type": "boolean",
                       "example": false,
                       "description": "Whether or not there have been errors on this transfer."
@@ -2873,7 +2881,7 @@
                     "transfer_data": {
                       "$ref": "#/components/schemas/TransferDataSchema"
                     },
-                    "transfer_errors":{
+                    "transfer_errors": {
                       "type": "boolean",
                       "example": false,
                       "description": "Whether or not there have been errors on this transfer."
@@ -3810,7 +3818,6 @@
             "in": "query",
             "name": "resource_selection",
             "description": "Whether or not to allow the user to choose the integrations for a given schema (e.g. choosing \"Get Contacts\" for a contact schema) when editing. See https://documentation.endgrate.com/docs/ux-customization#resource-selection for more information.",
-            
             "required": false,
             "schema": {
               "type": "boolean",
@@ -3853,7 +3860,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "examples": ["crm-contact","Contact"]
+              "examples": [
+                "crm-contact",
+                "Contact"
+              ]
             }
           }
         ],
@@ -4220,8 +4230,7 @@
                               "error_log": "The upstream integration runner returned the following error: ...",
                               "id": null,
                               "internal_id": "7",
-                              "data": {
-                              },
+                              "data": {},
                               "original_data": {
                                 "company_url": "invalidformat"
                               }
@@ -4234,8 +4243,7 @@
                         "error_log": "The upstream integration runner returned the following error: ...",
                         "id": null,
                         "internal_id": "2",
-                        "data": {
-                        },
+                        "data": {},
                         "original_data": {
                           "email": "invalidformat"
                         },
