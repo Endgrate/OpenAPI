@@ -2162,11 +2162,11 @@
           {
             "in": "query",
             "name": "error_type",
-            "description": "Specify the type of error to retrieve. Can be any of 'internal', 'transfer_data', 'schema', 'upstream', 'authentication', 'provider'.",
+            "description": "Specify the type of error to retrieve. Can be any of 'internal', 'transfer_data', 'schema', 'upstream', 'authentication'.",
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["internal", "transfer_data", "schema", "upstream", "authentication", "provider"]
+              "enum": ["internal", "transfer_data", "schema", "upstream", "authentication"]
             }
           }
         ],
