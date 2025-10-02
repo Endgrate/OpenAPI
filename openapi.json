@@ -3719,21 +3719,110 @@
                           "integration": {
                             "type": "string",
                             "example": "get-contact"
+                          },
+                          "associations": {
+                            "type": "object",
+                            "additionalProperties": {
+                              "type": "object",
+                              "properties": {
+                                "batch_size": {
+                                  "type": "integer",
+                                  "example": 200
+                                },
+                                "records": {
+                                  "type": "integer",
+                                  "example": 0
+                                },
+                                "batches": {
+                                  "type": "integer",
+                                  "example": 0
+                                },
+                                "batches_queued": {
+                                  "type": "integer",
+                                  "example": 0
+                                },
+                                "batches_success": {
+                                  "type": "integer",
+                                  "example": 0
+                                },
+                                "batches_fail": {
+                                  "type": "integer",
+                                  "example": 0
+                                },
+                                "records_transferred": {
+                                  "type": "integer",
+                                  "example": 2
+                                },
+                                "completed": {
+                                  "type": "boolean",
+                                  "example": true
+                                },
+                                "integration": {
+                                  "type": "string",
+                                  "example": "create-or-update-companies"
+                                }
+                              }
+                            }
                           }
                         }
                       },
                       "example": {
                         "crm-contact": {
-                          "batch_size": 200,
-                          "records": 0,
-                          "batches": 0,
+                          "batch_size": 1,
+                          "records": 1,
+                          "batches": 1,
                           "batches_queued": 0,
-                          "batches_success": 2,
+                          "batches_success": 1,
                           "batches_fail": 0,
-                          "records_transferred": 2,
+                          "records_transferred": 1,
                           "completed": true,
                           "provider": "hubspot",
-                          "integration": "get-contact"
+                          "integration": "create-or-update-contacts",
+                          "associations": {
+                            "crm-company": {
+                              "batch_size": 1,
+                              "records": 1,
+                              "batches": 1,
+                              "batches_queued": 0,
+                              "batches_success": 1,
+                              "batches_fail": 0,
+                              "records_transferred": 1,
+                              "completed": true,
+                              "integration": "create-or-update-companies"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "method": "SESSION",
+                  "completed": true,
+                  "initiated": "2025-10-02 04:07:41.636000",
+                  "statistics": {
+                    "crm-contact": {
+                      "batch_size": 1,
+                      "records": 1,
+                      "batches": 1,
+                      "batches_queued": 0,
+                      "batches_success": 1,
+                      "batches_fail": 0,
+                      "records_transferred": 1,
+                      "completed": true,
+                      "provider": "hubspot",
+                      "integration": "create-or-update-contacts",
+                      "associations": {
+                        "crm-company": {
+                          "batch_size": 1,
+                          "records": 1,
+                          "batches": 1,
+                          "batches_queued": 0,
+                          "batches_success": 1,
+                          "batches_fail": 0,
+                          "records_transferred": 1,
+                          "completed": true,
+                          "integration": "create-or-update-companies"
                         }
                       }
                     }
