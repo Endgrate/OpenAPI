@@ -1927,6 +1927,51 @@
         "title": "PushTransferSchema",
         "type": "object"
       },
+      "TransferEditSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "transfer_id": {
+            "type": "string",
+            "description": "The transfer ID to edit.",
+            "pattern": "^[0-9A-Fa-f]{24}$",
+            "minLength": 24,
+            "maxLength": 24,
+            "example": "6566e87b7cf20dca9cef0c0d"
+          },
+          "ttl_date": {
+            "type": "string",
+            "description": "Optional TTL date for the transfer. Accepts YYYY-MM-DD or YYYY-MM-DD HH:MM:SS format in UTC time. Must be within 30 days of transfer creation.",
+            "nullable": true,
+            "default": null,
+            "example": "2024-01-15"
+          }
+        },
+        "required": [
+          "transfer_id"
+        ],
+        "title": "TransferEditSchema",
+        "type": "object"
+      },
+      "TransferEditResponseSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "warn": {
+            "type": "array",
+            "description": "A list of developer warnings for the specified request, if applicable.",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "success"
+        ],
+        "title": "TransferEditResponseSchema",
+        "type": "object"
+      },
       "SessionInitiateSchema": {
         "additionalProperties": false,
         "properties": {
@@ -3341,6 +3386,69 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/transfer/edit": {
+      "post": {
+        "tags": [
+          "Transfer"
+        ],
+        "summary": "Edit Transfer",
+        "operationId": "post_api_transfer_edit",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransferEditSchema"
+              },
+              "examples": {
+                "Update TTL Date": {
+                  "value": {
+                    "transfer_id": "6566e87b7cf20dca9cef0c0d",
+                    "ttl_date": "2024-01-15"
+                  }
+                },
+                "Update TTL Date with Time": {
+                  "value": {
+                    "transfer_id": "6566e87b7cf20dca9cef0c0d",
+                    "ttl_date": "2024-01-15 14:30:00"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransferEditResponseSchema"
+                },
+                "example": {
+                  "success": true
+                }
+              }
+            }
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Error"
           }
         }
       }
